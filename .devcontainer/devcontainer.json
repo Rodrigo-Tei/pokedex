@@ -1,0 +1,13 @@
+{
+    "name": "pokedex",
+    "context": "..",
+    "dockerFile": "../Dockerfile",
+    "remoteUser": "developer",
+    "settings": {
+        "terminal.integrated.shell.linux": null
+    },
+    "runArgs": ["--privileged"],
+    "extensions":["Dart-Code.flutter"],
+    "workspaceMount": "source=${localWorkspaceFolder}/workspace,target=/home/developer/workspace,type=bind,consistency=delegated",
+    "workspaceFolder": "/home/developer/workspace"
+}
