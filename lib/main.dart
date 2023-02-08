@@ -1,21 +1,23 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
-import 'package:pokedex/ui/pokemon_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/app.dart';
+import 'package:pokedex/modules/pokedex/bloc/pokemon_list_bloc.dart';
+import 'package:pokedex/repositories/pokemon_repository.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const PokemonList(title: 'Pokédex'),
-    );
-  }
+  runApp(
+    MultiProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => PokemonListBloc(
+            PokemonRepository(),
+          ),
+        ),
+      ],
+      child: const App(),
+    ),
+  );
 }
