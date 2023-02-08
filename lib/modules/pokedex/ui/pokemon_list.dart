@@ -49,15 +49,29 @@ class _PokemonListState extends State<PokemonList> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: PokemonCard(pokemon: pokemonList[index]),
+                  // child: ListView.builder(
+                  //   itemCount: 10,
+                  //   itemBuilder: (BuildContext context, int index) {
+                  //     return ListTile(
+                  //       title: PokemonCard(pokemon: pokemonList[index]),
+                  //     );
+                  //   },
+                  //   scrollDirection: Axis.vertical,
+                  //   shrinkWrap: true,
+                  // ),
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 3 / 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16),
+                    itemCount: pokemonList.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return PokemonCard(
+                        pokemon: pokemonList[index],
                       );
                     },
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
                   ),
                 ),
               ],
