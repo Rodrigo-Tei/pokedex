@@ -4,9 +4,11 @@ part 'pokemon.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Pokemon {
-  Pokemon(this.name, this.types);
+  Pokemon(this.name, this.types, this.pokedexNumber);
 
   String name;
+  @JsonKey(name: 'id')
+  int pokedexNumber;
   @JsonKey(name: 'types', fromJson: _extractPokemonTypes)
   List<String> types;
 

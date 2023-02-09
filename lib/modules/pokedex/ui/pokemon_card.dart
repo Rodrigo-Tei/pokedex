@@ -24,7 +24,7 @@ class PokemonCard extends StatelessWidget {
       name,
       style: TextStyle(
         color: DefaultTheme.grayscale[Grayscale.white],
-        fontSize: 18.0,
+        fontSize: 24.0,
         fontWeight: FontWeight.w500,
       ),
     );
@@ -36,20 +36,43 @@ class PokemonCard extends StatelessWidget {
       onTap: () {},
       child: Container(
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: DefaultTheme.grayscale[Grayscale.lightGray]!,
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 3),
+            ),
+          ],
           borderRadius: const BorderRadius.all(
             Radius.circular(12.0),
           ),
           color: getColorFromType(pokemon.types[0]),
         ),
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 26.0, 16.0),
+        padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildPokemonName(pokemon.name),
-            const SizedBox(
-              height: 8.0,
+            Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Image.network(
+                          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png', //TODO: Bring this to repository and put image on Pokemon model
+                          scale: 4.4,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                _buildTypeTag(pokemon.types),
+              ],
             ),
-            _buildTypeTag(pokemon.types),
           ],
         ),
       ),
