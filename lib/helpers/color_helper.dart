@@ -3,41 +3,41 @@ import 'package:pokedex/theme/colors.dart';
 
 Color getColorFromType(String type) {
   switch (type) {
-    case 'normal':
+    case 'Normal':
       return DefaultTheme.types[Types.normal]!;
-    case 'fire':
+    case 'Fire':
       return DefaultTheme.types[Types.fire]!;
-    case 'water':
+    case 'Water':
       return DefaultTheme.types[Types.water]!;
-    case 'electric':
+    case 'Electric':
       return DefaultTheme.types[Types.electric]!;
-    case 'grass':
+    case 'Grass':
       return DefaultTheme.types[Types.grass]!;
-    case 'ice':
+    case 'Ice':
       return DefaultTheme.types[Types.ice]!;
-    case 'fighting':
+    case 'Fighting':
       return DefaultTheme.types[Types.fighting]!;
-    case 'poison':
+    case 'Poison':
       return DefaultTheme.types[Types.poison]!;
-    case 'ground':
+    case 'Ground':
       return DefaultTheme.types[Types.ground]!;
-    case 'flying':
+    case 'Flying':
       return DefaultTheme.types[Types.flying]!;
-    case 'psychic':
+    case 'Psychic':
       return DefaultTheme.types[Types.psychic]!;
-    case 'bug':
+    case 'Bug':
       return DefaultTheme.types[Types.bug]!;
-    case 'rock':
+    case 'Rock':
       return DefaultTheme.types[Types.rock]!;
-    case 'ghost':
+    case 'Ghost':
       return DefaultTheme.types[Types.ghost]!;
-    case 'dragon':
+    case 'Dragon':
       return DefaultTheme.types[Types.dragon]!;
-    case 'dark':
+    case 'Dark':
       return DefaultTheme.types[Types.dark]!;
-    case 'steel':
+    case 'Steel':
       return DefaultTheme.types[Types.steel]!;
-    case 'fairy':
+    case 'Fairy':
       return DefaultTheme.types[Types.fairy]!;
   }
 

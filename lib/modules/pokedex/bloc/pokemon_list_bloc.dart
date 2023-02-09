@@ -19,9 +19,9 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
       _pokemonList = await pokemonRepository.getUserPokemons();
       for (Pokemon pokemon in _pokemonList) {
         pokemon.name = capitalizeFirstLetter(pokemon.name);
-        // for (int i = 0; i < pokemon.types.length; i++) {
-        //   pokemon.types[i] = capitalizeFirstLetter(pokemon.types[i]);
-        // }
+        for (int i = 0; i < pokemon.types.length; i++) {
+          pokemon.types[i] = capitalizeFirstLetter(pokemon.types[i]);
+        }
       }
       emit(PokemonListLoaded(_pokemonList));
     });
