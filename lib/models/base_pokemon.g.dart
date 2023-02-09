@@ -1,17 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pokemon.dart';
+part of 'base_pokemon.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
+BasePokemon _$BasePokemonFromJson(Map<String, dynamic> json) => BasePokemon(
       json['name'] as String,
-      Pokemon._extractPokemonTypes(json['types'] as List),
+      json['url'] as String,
     );
 
-Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
+Map<String, dynamic> _$BasePokemonToJson(BasePokemon instance) =>
+    <String, dynamic>{
       'name': instance.name,
-      'types': instance.types,
+      'url': instance.url,
     };

@@ -14,9 +14,17 @@ class PokemonCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(12.0),
+          ),
+          color: Colors.blue,
+        ),
         padding: const EdgeInsets.fromLTRB(16.0, 16.0, 26.0, 16.0),
-        color: Colors.blue,
-        child: Text(pokemon.name),
+        child: Text(
+          pokemon.name,
+          style: TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
       ),
     );
   }

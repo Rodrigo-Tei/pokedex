@@ -9,10 +9,17 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
 
   List<Pokemon> _pokemonList = List.empty();
 
+  String capitalizeFirstLetter(String word) {
+    return word[0].toUpperCase() + word.substring(1);
+  }
+
   PokemonListBloc(this.pokemonRepository) : super(PokemonListLoading()) {
     on<FetchPokemonList>((event, emit) async {
       emit(PokemonListLoading());
       _pokemonList = await pokemonRepository.getUserPokemons();
+      for (Pokemon pokemon in _pokemonList) {
+        pokemon.name = capitalizeFirstLetter(pokemon.name);
+      }
       emit(PokemonListLoaded(_pokemonList));
     });
   }
