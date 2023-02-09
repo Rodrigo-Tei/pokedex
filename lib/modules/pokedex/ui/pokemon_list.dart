@@ -45,11 +45,11 @@ class _PokemonListState extends State<PokemonList> {
             title: Text(widget.title),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
-                  childAspectRatio: 3 / 2,
+                  childAspectRatio: 2.5 / 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12),
               itemCount: pokemonList.length,

@@ -10,7 +10,7 @@ class PokemonListRequester {
     final pokemonListUri = Uri.https(
       'pokeapi.co',
       '/api/v2/pokemon/',
-      {'limit': '25', 'offset': '0'},
+      {'limit': '26', 'offset': '0'},
     );
 
     final response = await BaseApiRequester.send(pokemonListUri);
