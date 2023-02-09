@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pokedex/modules/pokedex/ui/pokemon_list.dart';
+import 'package:pokedex/theme/colors.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -14,12 +14,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.robotoTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
+      theme: DefaultTheme.theme,
       home: const PokemonList(title: 'Pokédex'),
     );
   }
