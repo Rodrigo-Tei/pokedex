@@ -5,6 +5,8 @@ import 'package:pokedex/modules/pokedex/bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_event.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_state.dart';
 import 'package:pokedex/modules/pokedex/ui/pokemon_card.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:pokedex/theme/colors.dart';
 
 class PokemonList extends StatefulWidget {
   const PokemonList({super.key, required this.title});
@@ -19,6 +21,7 @@ class PokemonList extends StatefulWidget {
 class _PokemonListState extends State<PokemonList> {
   late PokemonListBloc _pokemonListBloc;
   List<Pokemon> pokemonList = List.empty();
+  late bool _loading = false;
 
   @override
   void initState() {
@@ -29,9 +32,39 @@ class _PokemonListState extends State<PokemonList> {
 
   Future<void> _handleListener(
       BuildContext context, PokemonListState state) async {
+    if (state is PokemonListLoading) {
+      _loading = true;
+    }
     if (state is PokemonListLoaded) {
       pokemonList = state.pokemonList;
+      _loading = false;
     }
+  }
+
+  Widget _buildLoadingScreen() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('lib/assets/gif/mew_loading.gif'),
+          DefaultTextStyle(
+            style: TextStyle(
+              fontSize: 28.0,
+              color: DefaultTheme.grayscale[Grayscale.black],
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                WavyAnimatedText(
+                  'Loading . . .',
+                  speed: const Duration(milliseconds: 200),
+                ),
+              ],
+              isRepeatingAnimation: true,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -44,22 +77,25 @@ class _PokemonListState extends State<PokemonList> {
           appBar: AppBar(
             title: Text(widget.title),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 2.5 / 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12),
-              itemCount: pokemonList.length,
-              itemBuilder: (BuildContext ctx, index) {
-                return PokemonCard(
-                  pokemon: pokemonList[index],
-                );
-              },
-            ),
-          ),
+          body: _loading
+              ? _buildLoadingScreen()
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 2.5 / 2,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12),
+                    itemCount: pokemonList.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return PokemonCard(
+                        pokemon: pokemonList[index],
+                      );
+                    },
+                  ),
+                ),
         );
       },
     );
