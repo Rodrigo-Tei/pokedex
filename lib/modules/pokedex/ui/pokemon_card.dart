@@ -44,6 +44,15 @@ class PokemonCard extends StatelessWidget {
               offset: const Offset(0, 3),
             ),
           ],
+          image: const DecorationImage(
+            opacity: 0.15,
+            image: AssetImage(
+              'lib/assets/images/pokeball-icon-white.png',
+            ),
+            fit: BoxFit.none,
+            scale: 2.6,
+            alignment: Alignment(5, -7),
+          ),
           borderRadius: const BorderRadius.all(
             Radius.circular(12.0),
           ),

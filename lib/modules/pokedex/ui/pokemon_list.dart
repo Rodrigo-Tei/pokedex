@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_bloc.dart';
@@ -73,30 +74,79 @@ class _PokemonListState extends State<PokemonList> {
       bloc: _pokemonListBloc,
       listener: _handleListener,
       builder: (BuildContext context, PokemonListState state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
-          body: _loading
-              ? _buildLoadingScreen()
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 2.5 / 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 12),
-                    itemCount: pokemonList.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return PokemonCard(
-                        pokemon: pokemonList[index],
-                      );
-                    },
+        return _loading
+            ? Scaffold(
+                body: _buildLoadingScreen(),
+              )
+            : Scaffold(
+                appBar: AppBar(
+                  systemOverlayStyle: const SystemUiOverlayStyle(
+                    statusBarColor: DefaultTheme.transparent,
+                    statusBarIconBrightness: Brightness.dark,
+                  ),
+                  actions: [
+                    IconButton(
+                      onPressed: () => {},
+                      icon: const Icon(Icons.search),
+                      color: DefaultTheme.grayscale[Grayscale.black],
+                    ),
+                    IconButton(
+                      onPressed: () => {},
+                      icon: const Icon(Icons.filter_alt_outlined),
+                      color: DefaultTheme.grayscale[Grayscale.black],
+                    ),
+                  ],
+                  elevation: 0,
+                  backgroundColor: DefaultTheme.transparent,
+                  bottom: AppBar(
+                    elevation: 0,
+                    backgroundColor: DefaultTheme.transparent,
+                    title: Text(
+                      widget.title,
+                      style: TextStyle(
+                        color: DefaultTheme.grayscale[Grayscale.black],
+                        fontWeight: FontWeight.w600,
+                        fontSize: 36.0,
+                      ),
+                    ),
                   ),
                 ),
-        );
+                body: Stack(
+                  children: [
+                    Transform.translate(
+                      offset: Offset(
+                        MediaQuery.of(context).size.width * 0.5,
+                        -MediaQuery.of(context).size.height * 0.3,
+                      ),
+                      child: Opacity(
+                        opacity: 0.1,
+                        child: Image.asset(
+                          'lib/assets/images/pokeball-icon.png', //TODO: CRIAR ARQUIVO CONSTS
+                          scale:
+                              1.4, //TODO: PENSAR EM JEITO DE ATRELAR ISSO AO TAMANHO DA TELA
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: 2.5 / 2,
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 12),
+                        itemCount: pokemonList.length,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return PokemonCard(
+                            pokemon: pokemonList[index],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
       },
     );
   }

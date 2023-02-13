@@ -65,9 +65,10 @@ class DefaultTheme {
     Grayscale.white: Colors.white,
   };
 
+  static const Color transparent = Color(0x00000000);
+
   static final ThemeData theme = ThemeData(
     scaffoldBackgroundColor: DefaultTheme.grayscale[Grayscale.white],
-    backgroundColor: DefaultTheme.grayscale[Grayscale.white],
     fontFamily: 'Roboto',
   );
 }
