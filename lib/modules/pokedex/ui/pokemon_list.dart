@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/modules/commons/loading_list_page.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_event.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_state.dart';
@@ -68,6 +69,25 @@ class _PokemonListState extends State<PokemonList> {
     );
   }
 
+  Widget pokemonCardItemBuilder(context, i) {
+    if (i == pokemonList.length) {
+      return Container(
+        decoration: BoxDecoration(color: Colors.red),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: const [
+            Expanded(
+              child: LoadingListPage(),
+            )
+          ],
+        ),
+      );
+    }
+    return PokemonCard(pokemon: pokemonList[i]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PokemonListBloc, PokemonListState>(
@@ -132,16 +152,18 @@ class _PokemonListState extends State<PokemonList> {
                       child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200,
-                                childAspectRatio: 2.5 / 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 12),
-                        itemCount: pokemonList.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return PokemonCard(
-                            pokemon: pokemonList[index],
-                          );
-                        },
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 2.5 / 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                        ),
+                        itemCount: pokemonList.length + 1,
+                        // itemBuilder: (BuildContext context, index) {
+                        //   return PokemonCard(
+                        //     pokemon: pokemonList[index],
+                        //   );
+                        // },
+                        itemBuilder: pokemonCardItemBuilder,
                       ),
                     ),
                   ],
