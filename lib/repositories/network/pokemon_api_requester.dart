@@ -6,11 +6,12 @@ import 'package:pokedex/repositories/network/base_api_requester.dart';
 import 'package:pokedex/models/pokemon.dart';
 
 class PokemonListRequester {
-  static Future<List<Pokemon>> getPokemonList() async {
+  static Future<List<Pokemon>> getPokemonList(int pageIndex) async {
+    int index = 20 * pageIndex;
     final pokemonListUri = Uri.https(
       'pokeapi.co',
       '/api/v2/pokemon/',
-      {'limit': '20', 'offset': '0'},
+      {'limit': '20', 'offset': index.toString()},
     );
 
     final response = await BaseApiRequester.send(pokemonListUri);

@@ -37,6 +37,7 @@ dependencies:
   http: ^0.13.5
   flutter_bloc: ^8.1.2
   animated_text_kit: ^4.2.2
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

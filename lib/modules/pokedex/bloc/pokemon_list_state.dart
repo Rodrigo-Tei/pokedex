@@ -10,11 +10,18 @@ abstract class PokemonListState extends Equatable {
   List get props => _props;
 }
 
-class PokemonListLoading extends PokemonListState {
-  PokemonListLoading() : super([]);
+class PokemonListFirstLoading extends PokemonListState {
+  PokemonListFirstLoading() : super([]);
 
   @override
-  String toString() => 'PokemonListLoading';
+  String toString() => 'PokemonListFirstLoading';
+}
+
+class PokemonNewListLoading extends PokemonListState {
+  PokemonNewListLoading() : super([]);
+
+  @override
+  String toString() => 'PokemonNewListLoading';
 }
 
 class PokemonListLoaded extends PokemonListState {

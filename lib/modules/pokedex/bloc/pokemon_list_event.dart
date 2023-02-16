@@ -10,5 +10,6 @@ abstract class PokemonListEvent extends Equatable {
 }
 
 class FetchPokemonList extends PokemonListEvent {
-  FetchPokemonList() : super([]);
+  final int pageIndex;
+  FetchPokemonList(this.pageIndex) : super([pageIndex]);
 }

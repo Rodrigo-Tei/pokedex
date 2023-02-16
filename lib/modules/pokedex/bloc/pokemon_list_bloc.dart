@@ -6,6 +6,7 @@ import 'package:pokedex/repositories/pokemon_repository.dart';
 
 class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   final PokemonRepository pokemonRepository;
+  int pageIndex = 0;
 
   List<Pokemon> _pokemonList = List.empty();
 
@@ -27,10 +28,15 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     }
   }
 
-  PokemonListBloc(this.pokemonRepository) : super(PokemonListLoading()) {
+  PokemonListBloc(this.pokemonRepository) : super(PokemonListFirstLoading()) {
     on<FetchPokemonList>((event, emit) async {
-      emit(PokemonListLoading());
-      _pokemonList = await pokemonRepository.getUserPokemons();
+      event.pageIndex == 0
+          ? emit(PokemonListFirstLoading())
+          : emit(PokemonNewListLoading());
+      List<Pokemon> tmpPokemonList = List.empty();
+      pageIndex = event.pageIndex;
+      tmpPokemonList = await pokemonRepository.getUserPokemons(pageIndex);
+      _pokemonList += tmpPokemonList;
       for (Pokemon pokemon in _pokemonList) {
         handlePokemonStrings(pokemon);
       }

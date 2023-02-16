@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/models/pokemon.dart';
-import 'package:pokedex/modules/commons/loading_list_page.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_bloc.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_event.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_state.dart';
+import 'package:pokedex/modules/pokedex/ui/loading_card.dart';
 import 'package:pokedex/modules/pokedex/ui/pokemon_card.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:pokedex/theme/colors.dart';
@@ -23,24 +23,47 @@ class PokemonList extends StatefulWidget {
 class _PokemonListState extends State<PokemonList> {
   late PokemonListBloc _pokemonListBloc;
   List<Pokemon> pokemonList = List.empty();
-  late bool _loading = false;
+  late bool _firstLoading = false;
+  int pageIndex = 0;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _pokemonListBloc = context.read<PokemonListBloc>();
-    _pokemonListBloc.add(FetchPokemonList());
+    _pokemonListBloc.add(FetchPokemonList(pageIndex));
+    _scrollController = ScrollController(initialScrollOffset: 5.0)
+      ..addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {
+        pageIndex = pageIndex + 1;
+
+        _pokemonListBloc.add(FetchPokemonList(pageIndex));
+      });
+    }
   }
 
   Future<void> _handleListener(
       BuildContext context, PokemonListState state) async {
-    if (state is PokemonListLoading) {
-      _loading = true;
+    if (state is PokemonListFirstLoading) {
+      _firstLoading = true;
     }
     if (state is PokemonListLoaded) {
       pokemonList = state.pokemonList;
-      _loading = false;
+      _firstLoading = false;
     }
+    if (state is PokemonNewListLoading) {}
   }
 
   Widget _buildLoadingScreen() {
@@ -70,20 +93,8 @@ class _PokemonListState extends State<PokemonList> {
   }
 
   Widget pokemonCardItemBuilder(context, i) {
-    if (i == pokemonList.length) {
-      return Container(
-        decoration: BoxDecoration(color: Colors.red),
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: const [
-            Expanded(
-              child: LoadingListPage(),
-            )
-          ],
-        ),
-      );
+    if (i == pokemonList.length || i == pokemonList.length + 1) {
+      return const LoadingCard();
     }
     return PokemonCard(pokemon: pokemonList[i]);
   }
@@ -94,7 +105,7 @@ class _PokemonListState extends State<PokemonList> {
       bloc: _pokemonListBloc,
       listener: _handleListener,
       builder: (BuildContext context, PokemonListState state) {
-        return _loading
+        return _firstLoading
             ? Scaffold(
                 body: _buildLoadingScreen(),
               )
@@ -150,6 +161,8 @@ class _PokemonListState extends State<PokemonList> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GridView.builder(
+                        controller: _scrollController,
+                        shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 200,
@@ -157,12 +170,7 @@ class _PokemonListState extends State<PokemonList> {
                           crossAxisSpacing: 12,
                           mainAxisSpacing: 12,
                         ),
-                        itemCount: pokemonList.length + 1,
-                        // itemBuilder: (BuildContext context, index) {
-                        //   return PokemonCard(
-                        //     pokemon: pokemonList[index],
-                        //   );
-                        // },
+                        itemCount: pokemonList.length + 2,
                         itemBuilder: pokemonCardItemBuilder,
                       ),
                     ),
