@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:pokedex/models/base_pokemon.dart';
 import 'package:pokedex/repositories/network/base_api_requester.dart';
 import 'package:pokedex/models/pokemon.dart';
@@ -45,6 +46,10 @@ class PokemonListRequester {
     if (response.statusCode == HttpStatus.ok) {
       final Map<String, dynamic> responseJson = json.decode(response.body);
       final Pokemon pokemon = Pokemon.fromJson(responseJson);
+      pokemon.image = Image.network(
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png',
+        fit: BoxFit.fill,
+      );
       return pokemon;
     } else {
       var msg =

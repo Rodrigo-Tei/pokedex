@@ -24,12 +24,12 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     return Scaffold(
       body: Center(
         child: Hero(
+          createRectTween: (begin, end) {
+            return MaterialRectCenterArcTween(begin: begin, end: end);
+          },
           tag: pokemon.pokedexNumber.toString(),
           transitionOnUserGestures: true,
-          child: Image.network(
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png', //TODO: Bring this to repository and put image on Pokemon model
-            scale: 1.5,
-          ),
+          child: pokemon.image!,
         ),
       ),
     );

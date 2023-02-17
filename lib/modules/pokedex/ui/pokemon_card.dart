@@ -88,10 +88,15 @@ class PokemonCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Hero(
+                          createRectTween: (begin, end) {
+                            return MaterialRectCenterArcTween(
+                                begin: begin, end: end);
+                          },
                           tag: pokemon.pokedexNumber.toString(),
-                          child: Image.network(
-                            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png', //TODO: Bring this to repository and put image on Pokemon model
-                            scale: 4.4,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 3.67,
+                            height: MediaQuery.of(context).size.width / 3.67,
+                            child: pokemon.image!,
                           ),
                         ),
                       ],
