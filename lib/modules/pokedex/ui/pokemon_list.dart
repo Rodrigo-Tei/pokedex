@@ -21,6 +21,7 @@ class PokemonList extends StatefulWidget {
 
 @override
 class _PokemonListState extends State<PokemonList> {
+  String get title => widget.title;
   late PokemonListBloc _pokemonListBloc;
   List<Pokemon> pokemonList = List.empty();
   late bool _firstLoading = false;
@@ -133,7 +134,7 @@ class _PokemonListState extends State<PokemonList> {
                     elevation: 0,
                     backgroundColor: DefaultTheme.transparent,
                     title: Text(
-                      widget.title,
+                      title,
                       style: TextStyle(
                         color: DefaultTheme.grayscale[Grayscale.black],
                         fontWeight: FontWeight.w600,

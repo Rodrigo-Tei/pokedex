@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/helpers/color_helper.dart';
+import 'package:pokedex/helpers/route_settings_helper.dart';
 import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/modules/pokedex/ui/pokemon_detais.dart';
 import 'package:pokedex/modules/pokedex/ui/type_tag.dart';
 import 'package:pokedex/theme/colors.dart';
 
@@ -33,7 +35,21 @@ class PokemonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            settings: RouteSettingsHelper.getRouteSettings(
+              path: '/PokemonList/PokemonDetails',
+              description: 'Pokemon Details Page',
+              origin: '/PokemonList',
+            ),
+            builder: (_) => PokemonDetails(
+              pokemon: pokemon,
+            ),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -71,10 +87,13 @@ class PokemonCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Image.network(
-                          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png', //TODO: Bring this to repository and put image on Pokemon model
-                          scale: 4.4,
-                        )
+                        Hero(
+                          tag: pokemon.pokedexNumber.toString(),
+                          child: Image.network(
+                            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png', //TODO: Bring this to repository and put image on Pokemon model
+                            scale: 4.4,
+                          ),
+                        ),
                       ],
                     ),
                   ],
