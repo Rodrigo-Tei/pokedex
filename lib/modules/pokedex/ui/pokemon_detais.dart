@@ -35,8 +35,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
         backgroundColor: DefaultTheme.transparent,
       ),
       backgroundColor: getColorFromType(pokemon.types[0]),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -77,8 +76,10 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                   ),
                 ),
               ),
-              Align(
-                alignment: const AlignmentDirectional(0, -10),
+              Positioned(
+                bottom: 350,
+                left: MediaQuery.of(context).size.width / 2 -
+                    137.45, // HALF SCREEN WIDTH - HALF IMAGE SIZE ---- TODO: GET RID OF MAGIC NUMBERS
                 child: Hero(
                   createRectTween: (begin, end) {
                     return MaterialRectCenterArcTween(begin: begin, end: end);
@@ -86,8 +87,8 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                   tag: pokemon.pokedexNumber.toString(),
                   transitionOnUserGestures: true,
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    height: MediaQuery.of(context).size.width * 0.6,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    height: MediaQuery.of(context).size.width * 0.7,
                     child: pokemon.image!,
                   ),
                 ),
