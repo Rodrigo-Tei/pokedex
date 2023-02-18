@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pokedex/helpers/build_pokemon_number.dart';
 import 'package:pokedex/helpers/color_helper.dart';
 import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/modules/pokedex/ui/type_tag.dart';
 import 'package:pokedex/theme/colors.dart';
 
 class PokemonDetails extends StatefulWidget {
@@ -39,25 +40,34 @@ class _PokemonDetailsState extends State<PokemonDetails> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Column(
               children: [
-                Text(
-                  pokemon.name,
-                  style: TextStyle(
-                    fontSize: 36.0,
-                    color: DefaultTheme.grayscale[Grayscale.white],
-                    fontWeight: FontWeight.w600,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      pokemon.name,
+                      style: TextStyle(
+                        fontSize: 36.0,
+                        color: DefaultTheme.grayscale[Grayscale.white],
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      buildPokemonNumber(pokemon.pokedexNumber),
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          color: DefaultTheme.grayscale[Grayscale.white],
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
-                Text(
-                  buildPokemonNumber(pokemon.pokedexNumber),
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      color: DefaultTheme.grayscale[Grayscale.white],
-                      fontWeight: FontWeight.w600),
-                ),
+                Row(
+                  children: [
+                    for (String type in pokemon.types) TypeTag(type: type)
+                  ],
+                )
               ],
             ),
           ),
