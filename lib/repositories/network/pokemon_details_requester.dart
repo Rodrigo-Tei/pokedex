@@ -15,8 +15,8 @@ class PokemonDetailsRequester {
 
     if (response.statusCode == HttpStatus.ok) {
       final Map<String, dynamic> responseJson = json.decode(response.body);
-      final PokemonDetails pokemonDetails = responseJson
-          .map<PokemonDetails>((json) => PokemonDetails.fromJson(json));
+      final PokemonDetails pokemonDetails =
+          PokemonDetails.fromJson(responseJson);
       return pokemonDetails;
     } else {
       var msg =
