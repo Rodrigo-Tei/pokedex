@@ -13,3 +13,8 @@ class FetchPokemonList extends PokemonListEvent {
   final int pageIndex;
   FetchPokemonList(this.pageIndex) : super([pageIndex]);
 }
+
+class FetchPokemonDetails extends PokemonListEvent {
+  final int pokedexNumber;
+  FetchPokemonDetails(this.pokedexNumber) : super([pokedexNumber]);
+}
