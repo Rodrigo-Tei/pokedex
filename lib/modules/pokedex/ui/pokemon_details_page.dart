@@ -21,10 +21,11 @@ class PokemonDetailsPage extends StatefulWidget {
 }
 
 @override
-class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
+class _PokemonDetailsPageState extends State<PokemonDetailsPage>
+    with TickerProviderStateMixin {
   Pokemon get pokemon => widget.pokemon;
   late PokemonListBloc _pokemonListBloc;
-  late PokemonDetails pokemonDetails;
+  late PokemonDetails pokemonDetails = PokemonDetails('', '');
 
   @override
   void initState() {
@@ -39,7 +40,138 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
     if (state is PokemonDetailsLoaded) {
       pokemonDetails = state.pokemonDetails;
     }
-    if (state is PokemonNewListLoading) {}
+  }
+
+  AppBar _buildAppbar() {
+    return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: DefaultTheme.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      elevation: 0,
+      backgroundColor: DefaultTheme.transparent,
+    );
+  }
+
+  Widget _buildDetailsHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                pokemon.name,
+                style: TextStyle(
+                  fontSize: 36.0,
+                  color: DefaultTheme.grayscale[Grayscale.white],
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                buildPokemonNumber(pokemon.pokedexNumber),
+                style: TextStyle(
+                    fontSize: 20.0,
+                    color: DefaultTheme.grayscale[Grayscale.white],
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          Row(
+            children: [for (String type in pokemon.types) TypeTag(type: type)],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailsContainer() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.5,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: DefaultTheme.grayscale[Grayscale.white],
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(36.0),
+            topRight: Radius.circular(36.0),
+          ),
+        ),
+        child: Container(
+          margin: const EdgeInsets.only(top: 48.0),
+          child: DefaultTabController(
+            length: 4,
+            child: Column(
+              children: <Widget>[
+                Material(
+                    color: Colors.transparent,
+                    child: TabBar(
+                      indicatorColor: getColorFromType(pokemon.types[0]),
+                      labelColor: DefaultTheme.grayscale[Grayscale.black],
+                      unselectedLabelColor:
+                          DefaultTheme.grayscale[Grayscale.gray],
+                      tabs: const [
+                        Tab(text: "About"),
+                        Tab(
+                          text: "Base stats",
+                        ),
+                        Tab(text: "Evolution"),
+                        Tab(text: "Moves"),
+                      ],
+                    )),
+                Expanded(
+                  flex: 1,
+                  child: TabBarView(
+                    children: [
+                      _buildAboutTab(), //TODO: FOR GODSAKE PUT THIS ON COMPONENTS
+                      const Text("BASE STATS "),
+                      const Text("EVOLUTION "),
+                      const Text("MOVES "),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPokemonImage() {
+    return Positioned(
+      bottom: MediaQuery.of(context).size.height / 2 - 137.45 / 2,
+      left: MediaQuery.of(context).size.width / 2 -
+          137.45, // HALF SCREEN WIDTH - HALF IMAGE SIZE ---- TODO: GET RID OF MAGIC NUMBERS
+      child: Hero(
+        createRectTween: (begin, end) {
+          return MaterialRectCenterArcTween(begin: begin, end: end);
+        },
+        tag: pokemon.pokedexNumber.toString(),
+        transitionOnUserGestures: true,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.7,
+          height: MediaQuery.of(context).size.width * 0.7,
+          child: pokemon.image!,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAboutTab() {
+    return Container(
+      margin: const EdgeInsets.all(24.0),
+      child: Text(
+        pokemonDetails.flavorText,
+        style: const TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
   }
 
   @override
@@ -49,83 +181,15 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
       listener: _handleListener,
       builder: (BuildContext context, PokemonListState state) {
         return Scaffold(
-          appBar: AppBar(
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: DefaultTheme.transparent,
-              statusBarIconBrightness: Brightness.dark,
-            ),
-            elevation: 0,
-            backgroundColor: DefaultTheme.transparent,
-          ),
+          appBar: _buildAppbar(),
           backgroundColor: getColorFromType(pokemon.types[0]),
           body: Stack(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          pokemon.name,
-                          style: TextStyle(
-                            fontSize: 36.0,
-                            color: DefaultTheme.grayscale[Grayscale.white],
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          buildPokemonNumber(pokemon.pokedexNumber),
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: DefaultTheme.grayscale[Grayscale.white],
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        for (String type in pokemon.types) TypeTag(type: type)
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              _buildDetailsHeader(),
               Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      decoration: BoxDecoration(
-                        color: DefaultTheme.grayscale[Grayscale.white],
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(36.0),
-                          topRight: Radius.circular(36.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 350,
-                    left: MediaQuery.of(context).size.width / 2 -
-                        137.45, // HALF SCREEN WIDTH - HALF IMAGE SIZE ---- TODO: GET RID OF MAGIC NUMBERS
-                    child: Hero(
-                      createRectTween: (begin, end) {
-                        return MaterialRectCenterArcTween(
-                            begin: begin, end: end);
-                      },
-                      tag: pokemon.pokedexNumber.toString(),
-                      transitionOnUserGestures: true,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        height: MediaQuery.of(context).size.width * 0.7,
-                        child: pokemon.image!,
-                      ),
-                    ),
-                  ),
+                  _buildDetailsContainer(),
+                  _buildPokemonImage(),
                 ],
               ),
             ],

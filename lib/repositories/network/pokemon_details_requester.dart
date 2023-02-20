@@ -4,6 +4,15 @@ import 'dart:io';
 import 'package:pokedex/models/pokemon_details.dart';
 import 'package:pokedex/repositories/network/base_api_requester.dart';
 
+String handleLineBreak(String text) {
+  String newText;
+
+  newText = text.replaceAll("\n", " ");
+  newText = newText.replaceAll("", " ");
+
+  return newText;
+}
+
 class PokemonDetailsRequester {
   static Future<PokemonDetails> getPokemonDetails(int pokedexNumber) async {
     final pokemonDetailsUri = Uri.https(
@@ -17,6 +26,7 @@ class PokemonDetailsRequester {
       final Map<String, dynamic> responseJson = json.decode(response.body);
       final PokemonDetails pokemonDetails =
           PokemonDetails.fromJson(responseJson);
+      pokemonDetails.flavorText = handleLineBreak(pokemonDetails.flavorText);
       return pokemonDetails;
     } else {
       var msg =
