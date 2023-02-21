@@ -4,13 +4,15 @@ part 'pokemon_details.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class PokemonDetails {
-  PokemonDetails(this.genera, this.flavorText);
+  PokemonDetails(this.genera, this.flavorText, this.genderRate);
 
   @JsonKey(name: 'genera', fromJson: _extractGenera)
   String genera;
 
   @JsonKey(name: 'flavor_text_entries', fromJson: _extractFlavorText)
   String flavorText;
+
+  int genderRate;
 
   factory PokemonDetails.fromJson(Map<String, dynamic> json) =>
       _$PokemonDetailsFromJson(json);

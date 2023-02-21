@@ -47,7 +47,7 @@ class PokemonListRequester {
       final Map<String, dynamic> responseJson = json.decode(response.body);
       final Pokemon pokemon = Pokemon.fromJson(responseJson);
       pokemon.image = Image.network(
-        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png',
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.pokedexNumber}.png', //TODO: THIS IS A FIELD OF THE API
         fit: BoxFit.fill,
       );
       return pokemon;

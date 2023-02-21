@@ -25,7 +25,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
     with TickerProviderStateMixin {
   Pokemon get pokemon => widget.pokemon;
   late PokemonListBloc _pokemonListBloc;
-  late PokemonDetails pokemonDetails = PokemonDetails('', '');
+  late PokemonDetails pokemonDetails = PokemonDetails('', '', 0);
 
   @override
   void initState() {
@@ -80,7 +80,21 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
             ],
           ),
           Row(
-            children: [for (String type in pokemon.types) TypeTag(type: type)],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  for (String type in pokemon.types) TypeTag(type: type),
+                ],
+              ),
+              Text(
+                pokemonDetails.genera,
+                style: TextStyle(
+                    color: DefaultTheme.grayscale[Grayscale.white],
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.0),
+              )
+            ],
           )
         ],
       ),
@@ -161,15 +175,132 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
     );
   }
 
+  Widget _buildWeightAndHeight(String title, String value) {
+    String unit = title == 'Height' ? 'm' : 'Kg';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: DefaultTheme.grayscale[Grayscale.gray],
+          ),
+        ),
+        const SizedBox(
+          height: 4.0,
+        ),
+        Text(
+          "$value$unit",
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            color: DefaultTheme.grayscale[Grayscale.black],
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildAboutTab() {
     return Container(
       margin: const EdgeInsets.all(24.0),
-      child: Text(
-        pokemonDetails.flavorText,
-        style: const TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.w500,
-        ),
+      child: Column(
+        children: [
+          Text(
+            pokemonDetails.flavorText,
+            style: const TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8.0),
+              ),
+              color: DefaultTheme.grayscale[Grayscale.white],
+              boxShadow: [
+                BoxShadow(
+                  color: DefaultTheme.grayscale[Grayscale.lightGray]!,
+                  spreadRadius: 2,
+                  blurRadius: 6,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            width: double.infinity,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _buildWeightAndHeight(
+                    "Height", decimeterToMeter(pokemon.height).toString()),
+                const SizedBox(width: 12.0),
+                _buildWeightAndHeight(
+                    "Weight", hectogramToKilogram(pokemon.weight).toString()),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Breeding",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18.0,
+                  ),
+                ),
+                const SizedBox(height: 4.0),
+                Row(
+                  children: [
+                    Text(
+                      "Gender",
+                      style: TextStyle(
+                          color: DefaultTheme.grayscale[Grayscale.gray],
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      width: 64.0,
+                    ),
+                    pokemonDetails.genderRate == -1
+                        ? const Text("Gender unknown")
+                        : Row(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.male,
+                                    color: getColorFromType("Water"),
+                                  ),
+                                  Text(
+                                      "${(100 - convertGenderRate(pokemonDetails.genderRate)).toString()}%"),
+                                ],
+                              ),
+                              const SizedBox(width: 8.0),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.female,
+                                    color: getColorFromType("Psychic"),
+                                  ),
+                                  Text(
+                                      "${convertGenderRate(pokemonDetails.genderRate).toString()}%")
+                                ],
+                              ),
+                            ],
+                          ),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
