@@ -10,6 +10,7 @@ import 'package:pokedex/modules/pokedex/bloc/pokemon_list_event.dart';
 import 'package:pokedex/modules/pokedex/bloc/pokemon_list_state.dart';
 import 'package:pokedex/modules/pokedex/ui/type_tag.dart';
 import 'package:pokedex/theme/colors.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PokemonDetailsPage extends StatefulWidget {
   const PokemonDetailsPage({super.key, required this.pokemon});
@@ -27,6 +28,8 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
   late PokemonListBloc _pokemonListBloc;
   late PokemonDetails pokemonDetails = PokemonDetails('', '', 0);
 
+  late bool _loading = false;
+
   @override
   void initState() {
     super.initState();
@@ -36,9 +39,12 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
 
   Future<void> _handleListener(
       BuildContext context, PokemonListState state) async {
-    if (state is PokemonDetailsLoading) {}
+    if (state is PokemonDetailsLoading) {
+      _loading = true;
+    }
     if (state is PokemonDetailsLoaded) {
       pokemonDetails = state.pokemonDetails;
+      _loading = false;
     }
   }
 
@@ -51,6 +57,66 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
       elevation: 0,
       backgroundColor: DefaultTheme.transparent,
     );
+  }
+
+  Widget _buildSmallTextShimmer() {
+    return Shimmer.fromColors(
+      baseColor: DefaultTheme.grayscale[Grayscale.lightGray]!,
+      highlightColor: DefaultTheme.grayscale[Grayscale.lightestGray]!,
+      child: Container(
+        decoration: BoxDecoration(
+          color: DefaultTheme.grayscale[Grayscale.lightGray],
+          borderRadius: const BorderRadius.all(
+            Radius.circular(4.0),
+          ),
+        ),
+        width: 48,
+        height: 16,
+      ),
+    );
+  }
+
+  Widget _buildBigTextShimmer() {
+    return Shimmer.fromColors(
+        baseColor: DefaultTheme.grayscale[Grayscale.lightGray]!,
+        highlightColor: DefaultTheme.grayscale[Grayscale.lightestGray]!,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: DefaultTheme.grayscale[Grayscale.lightGray],
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(4.0),
+                ),
+              ),
+              width: double.infinity,
+              height: 16,
+            ),
+            const SizedBox(height: 4.0),
+            Container(
+              decoration: BoxDecoration(
+                color: DefaultTheme.grayscale[Grayscale.lightGray],
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(4.0),
+                ),
+              ),
+              width: double.infinity,
+              height: 16,
+            ),
+            const SizedBox(height: 4.0),
+            Container(
+              decoration: BoxDecoration(
+                color: DefaultTheme.grayscale[Grayscale.lightGray],
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(4.0),
+                ),
+              ),
+              width: MediaQuery.of(context).size.width / 2,
+              height: 16,
+            ),
+          ],
+        ));
   }
 
   Widget _buildDetailsHeader() {
@@ -190,13 +256,15 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
         const SizedBox(
           height: 4.0,
         ),
-        Text(
-          "$value$unit",
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: DefaultTheme.grayscale[Grayscale.black],
-          ),
-        ),
+        _loading
+            ? _buildSmallTextShimmer()
+            : Text(
+                "$value$unit",
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  color: DefaultTheme.grayscale[Grayscale.black],
+                ),
+              ),
       ],
     );
   }
@@ -206,13 +274,15 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
       margin: const EdgeInsets.all(24.0),
       child: Column(
         children: [
-          Text(
-            pokemonDetails.flavorText,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          _loading
+              ? _buildBigTextShimmer()
+              : Text(
+                  pokemonDetails.flavorText,
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 16.0),
             padding: const EdgeInsets.all(12.0),
@@ -278,8 +348,10 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                                     Icons.male,
                                     color: getColorFromType("Water"),
                                   ),
-                                  Text(
-                                      "${(100 - convertGenderRate(pokemonDetails.genderRate)).toString()}%"),
+                                  _loading
+                                      ? _buildSmallTextShimmer()
+                                      : Text(
+                                          "${(100 - convertGenderRate(pokemonDetails.genderRate)).toString()}%"),
                                 ],
                               ),
                               const SizedBox(width: 8.0),
@@ -289,8 +361,10 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                                     Icons.female,
                                     color: getColorFromType("Psychic"),
                                   ),
-                                  Text(
-                                      "${convertGenderRate(pokemonDetails.genderRate).toString()}%")
+                                  _loading
+                                      ? _buildSmallTextShimmer()
+                                      : Text(
+                                          "${convertGenderRate(pokemonDetails.genderRate).toString()}%")
                                 ],
                               ),
                             ],
