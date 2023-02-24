@@ -4,13 +4,16 @@ part 'pokemon_details.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class PokemonDetails {
-  PokemonDetails(this.genera, this.flavorText, this.genderRate);
+  PokemonDetails(this.genera, this.flavorText, this.genderRate, this.eggGroups);
 
   @JsonKey(name: 'genera', fromJson: _extractGenera)
   String genera;
 
   @JsonKey(name: 'flavor_text_entries', fromJson: _extractFlavorText)
   String flavorText;
+
+  @JsonKey(name: 'egg_groups', fromJson: _extractEggGroups)
+  List<String> eggGroups;
 
   int genderRate;
 
@@ -27,6 +30,14 @@ class PokemonDetails {
       }
     }
     return finalGenera;
+  }
+
+  static List<String> _extractEggGroups(List<dynamic> eggGroupsObject) {
+    List<String> eggGroups = List.empty(growable: true);
+    for (var group in eggGroupsObject) {
+      eggGroups.add(group["name"]);
+    }
+    return eggGroups;
   }
 
   static String _extractFlavorText(List<dynamic> flavorTextList) {

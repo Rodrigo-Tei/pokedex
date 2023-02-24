@@ -26,7 +26,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
     with TickerProviderStateMixin {
   Pokemon get pokemon => widget.pokemon;
   late PokemonListBloc _pokemonListBloc;
-  late PokemonDetails pokemonDetails = PokemonDetails('', '', 0);
+  late PokemonDetails pokemonDetails = PokemonDetails('', '', 0, []);
 
   late bool _loading = false;
 
@@ -303,7 +303,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
             width: double.infinity,
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildWeightAndHeight(
                     "Height", decimeterToMeter(pokemon.height).toString()),
@@ -335,9 +335,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500),
                     ),
-                    const SizedBox(
-                      width: 64.0,
-                    ),
+                    const SizedBox(width: 64.0),
                     pokemonDetails.genderRate == -1
                         ? const Text("Gender unknown")
                         : Row(
@@ -369,6 +367,20 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                               ),
                             ],
                           ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Egg Groups",
+                      style: TextStyle(
+                          color: DefaultTheme.grayscale[Grayscale.gray],
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(width: 64.0),
+                    for (var eggGroup in pokemonDetails.eggGroups)
+                      Text(eggGroup)
                   ],
                 ),
               ],
