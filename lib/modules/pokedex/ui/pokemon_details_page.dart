@@ -328,59 +328,71 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                 const SizedBox(height: 4.0),
                 Row(
                   children: [
-                    Text(
-                      "Gender",
-                      style: TextStyle(
-                          color: DefaultTheme.grayscale[Grayscale.gray],
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Gender",
+                          style: TextStyle(
+                              color: DefaultTheme.grayscale[Grayscale.gray],
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          "Egg Groups",
+                          style: TextStyle(
+                              color: DefaultTheme.grayscale[Grayscale.gray],
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
                     ),
                     const SizedBox(width: 64.0),
-                    pokemonDetails.genderRate == -1
-                        ? const Text("Gender unknown")
-                        : Row(
-                            children: [
-                              Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        pokemonDetails.genderRate == -1
+                            ? const Text("Gender unknown")
+                            : Row(
                                 children: [
-                                  Icon(
-                                    Icons.male,
-                                    color: getColorFromType("Water"),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.male,
+                                        color: getColorFromType("Water"),
+                                      ),
+                                      _loading
+                                          ? _buildSmallTextShimmer()
+                                          : Text(
+                                              "${(100 - convertGenderRate(pokemonDetails.genderRate)).toString()}%"),
+                                    ],
                                   ),
-                                  _loading
-                                      ? _buildSmallTextShimmer()
-                                      : Text(
-                                          "${(100 - convertGenderRate(pokemonDetails.genderRate)).toString()}%"),
+                                  const SizedBox(width: 8.0),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.female,
+                                        color: getColorFromType("Psychic"),
+                                      ),
+                                      _loading
+                                          ? _buildSmallTextShimmer()
+                                          : Text(
+                                              "${convertGenderRate(pokemonDetails.genderRate).toString()}%")
+                                    ],
+                                  ),
                                 ],
                               ),
-                              const SizedBox(width: 8.0),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.female,
-                                    color: getColorFromType("Psychic"),
-                                  ),
-                                  _loading
-                                      ? _buildSmallTextShimmer()
-                                      : Text(
-                                          "${convertGenderRate(pokemonDetails.genderRate).toString()}%")
-                                ],
-                              ),
-                            ],
-                          ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "Egg Groups",
-                      style: TextStyle(
-                          color: DefaultTheme.grayscale[Grayscale.gray],
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(width: 64.0),
-                    for (var eggGroup in pokemonDetails.eggGroups)
-                      Text(eggGroup)
+                        Row(
+                          children: [
+                            for (var eggGroup in pokemonDetails.eggGroups)
+                              TypeTag(
+                                type: eggGroup,
+                                isEggGroup: true,
+                              )
+                          ],
+                        )
+                      ],
+                    )
                   ],
                 ),
               ],

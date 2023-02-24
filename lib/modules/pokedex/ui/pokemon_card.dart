@@ -94,8 +94,8 @@ class PokemonCard extends StatelessWidget {
                           },
                           tag: pokemon.pokedexNumber.toString(),
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 3.67,
-                            height: MediaQuery.of(context).size.width / 3.67,
+                            width: MediaQuery.of(context).size.width / 3.75,
+                            height: MediaQuery.of(context).size.width / 3.75,
                             child: pokemon.image!,
                           ),
                         ),
