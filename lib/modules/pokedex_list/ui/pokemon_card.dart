@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/helpers/color_helper.dart';
 import 'package:pokedex/helpers/route_settings_helper.dart';
 import 'package:pokedex/models/pokemon.dart';
-import 'package:pokedex/modules/pokedex/ui/pokemon_details_page.dart';
-import 'package:pokedex/modules/pokedex/ui/type_tag.dart';
+import 'package:pokedex/modules/pokemon_details/ui/pokemon_details_page.dart';
+import 'package:pokedex/modules/commons/type_tag.dart';
 import 'package:pokedex/theme/colors.dart';
 
 class PokemonCard extends StatelessWidget {

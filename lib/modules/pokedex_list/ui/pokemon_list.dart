@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/models/pokemon.dart';
-import 'package:pokedex/modules/pokedex/bloc/pokemon_list_bloc.dart';
-import 'package:pokedex/modules/pokedex/bloc/pokemon_list_event.dart';
-import 'package:pokedex/modules/pokedex/bloc/pokemon_list_state.dart';
-import 'package:pokedex/modules/pokedex/ui/loading_card.dart';
-import 'package:pokedex/modules/pokedex/ui/pokemon_card.dart';
+import 'package:pokedex/modules/pokedex_list/bloc/pokemon_list_bloc.dart';
+import 'package:pokedex/modules/pokedex_list/bloc/pokemon_list_event.dart';
+import 'package:pokedex/modules/pokedex_list/bloc/pokemon_list_state.dart';
+import 'package:pokedex/modules/pokedex_list/ui/loading_card.dart';
+import 'package:pokedex/modules/pokedex_list/ui/pokemon_card.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:pokedex/theme/colors.dart';
 
