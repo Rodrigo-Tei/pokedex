@@ -225,8 +225,8 @@ class AboutTab extends StatelessWidget {
                         Row(
                           children: [
                             for (var eggGroup in pokemonDetails.eggGroups)
-                              TypeTag(
-                                type: eggGroup,
+                              Tag(
+                                text: eggGroup,
                                 isEggGroup: true,
                               )
                           ],

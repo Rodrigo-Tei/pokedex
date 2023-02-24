@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/theme/colors.dart';
 
-class TypeTag extends StatelessWidget {
-  final String type;
+class Tag extends StatelessWidget {
+  final String text;
   final bool? isEggGroup;
 
-  const TypeTag({
+  const Tag({
     Key? key,
-    required this.type,
+    required this.text,
     this.isEggGroup,
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class TypeTag extends StatelessWidget {
             : DefaultTheme.grayscale[Grayscale.white]!.withOpacity(0.2),
       ),
       child: Text(
-        type,
+        text,
         style: TextStyle(
             color: isEggGroup == true
                 ? DefaultTheme.grayscale[Grayscale.black]

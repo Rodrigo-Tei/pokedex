@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/models/base_pokemon.dart';
 import 'package:pokedex/repositories/network/base_api_requester.dart';
 import 'package:pokedex/models/pokemon.dart';
-import 'package:pokedex/constants.dart' as Constants;
+import 'package:pokedex/constants.dart' as constants;
 
 class PokemonListRequester {
   static Future<List<Pokemon>> getPokemonList(int pageIndex) async {
     int index = 20 * pageIndex;
     final pokemonListUri = Uri.https(
-      Constants.pokeapiBaseUrl,
-      Constants.pokemonPath,
+      constants.pokeapiBaseUrl,
+      constants.pokemonPath,
       {'limit': '20', 'offset': index.toString()},
     );
 
@@ -41,14 +41,14 @@ class PokemonListRequester {
     final pokemonIndex = splittedUrl[splittedUrl.length - 2];
 
     final singlePokemonUri = Uri.https(
-        Constants.pokeapiBaseUrl, '${Constants.pokemonPath}$pokemonIndex');
+        constants.pokeapiBaseUrl, '${constants.pokemonPath}$pokemonIndex');
     final response = await BaseApiRequester.send(singlePokemonUri);
 
     if (response.statusCode == HttpStatus.ok) {
       final Map<String, dynamic> responseJson = json.decode(response.body);
       final Pokemon pokemon = Pokemon.fromJson(responseJson);
       pokemon.image = Image.network(
-        '${Constants.pokemonImageUrl}${pokemon.pokedexNumber}.png', //TODO: THIS IS A FIELD OF THE API
+        '${constants.pokemonImageUrl}${pokemon.pokedexNumber}.png', //TODO: THIS IS A FIELD OF THE API
         fit: BoxFit.fill,
       );
       return pokemon;

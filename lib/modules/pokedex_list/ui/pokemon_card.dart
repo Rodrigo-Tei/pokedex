@@ -17,7 +17,7 @@ class PokemonCard extends StatelessWidget {
   Widget _buildTypeTag(List<String> types) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [for (var type in types) TypeTag(type: type)],
+      children: [for (var type in types) Tag(text: type)],
     );
   }
 

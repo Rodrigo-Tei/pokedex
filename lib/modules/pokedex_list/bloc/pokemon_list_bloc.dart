@@ -18,7 +18,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
           : emit(PokemonNewListLoading());
       List<Pokemon> tmpPokemonList = List.empty();
       pageIndex = event.pageIndex;
-      tmpPokemonList = await pokemonRepository.getUserPokemons(pageIndex);
+      tmpPokemonList = await pokemonRepository.getPokemons(pageIndex);
       _pokemonList += tmpPokemonList;
       for (Pokemon pokemon in _pokemonList) {
         handlePokemonStrings(pokemon);

@@ -91,7 +91,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
             children: [
               Row(
                 children: [
-                  for (String type in pokemon.types) TypeTag(type: type),
+                  for (String type in pokemon.types) Tag(text: type),
                 ],
               ),
               Text(

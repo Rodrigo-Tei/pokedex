@@ -1,23 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:pokedex/helpers/pokemon_strings_helper.dart';
 import 'package:pokedex/models/pokemon_details.dart';
 import 'package:pokedex/repositories/network/base_api_requester.dart';
-
-String handleLineBreak(String text) {
-  String newText;
-
-  newText = text.replaceAll("\n", " ");
-  newText = newText.replaceAll("", " ");
-
-  return newText;
-}
+import 'package:pokedex/constants.dart' as constants;
 
 class PokemonDetailsRequester {
   static Future<PokemonDetails> getPokemonDetails(int pokedexNumber) async {
     final pokemonDetailsUri = Uri.https(
-      'pokeapi.co',
-      '/api/v2/pokemon-species/$pokedexNumber',
+      constants.pokeapiBaseUrl,
+      '${constants.pokemonSpeciesPath}$pokedexNumber',
     );
 
     final response = await BaseApiRequester.send(pokemonDetailsUri);

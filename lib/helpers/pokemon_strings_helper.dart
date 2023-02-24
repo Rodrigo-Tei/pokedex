@@ -17,3 +17,12 @@ void handlePokemonStrings(Pokemon pokemon) {
     pokemon.types[i] = capitalizeFirstLetter(pokemon.types[i]);
   }
 }
+
+String handleLineBreak(String text) {
+  String newText;
+
+  newText = text.replaceAll("\n", " ");
+  newText = newText.replaceAll("", " ");
+
+  return newText;
+}
