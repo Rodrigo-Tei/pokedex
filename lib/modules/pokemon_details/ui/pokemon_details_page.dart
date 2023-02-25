@@ -11,7 +11,6 @@ import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_event.dart'
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_state.dart';
 import 'package:pokedex/modules/pokemon_details/ui/about_tab.dart';
 import 'package:pokedex/theme/colors.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PokemonDetailsPage extends StatefulWidget {
   const PokemonDetailsPage({super.key, required this.pokemon});

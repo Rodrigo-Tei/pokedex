@@ -166,18 +166,10 @@ class AboutTab extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4.0),
-                Row(
+                Table(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    TableRow(
                       children: [
-                        Text(
-                          "Gender",
-                          style: TextStyle(
-                              color: DefaultTheme.grayscale[Grayscale.gray],
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500),
-                        ),
                         Text(
                           "Egg Groups",
                           style: TextStyle(
@@ -185,12 +177,6 @@ class AboutTab extends StatelessWidget {
                               fontSize: 14.0,
                               fontWeight: FontWeight.w500),
                         ),
-                      ],
-                    ),
-                    const SizedBox(width: 64.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
                         pokemonDetails.genderRate == -1
                             ? const Text("Gender unknown")
                             : Row(
@@ -222,19 +208,30 @@ class AboutTab extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          "Gender",
+                          style: TextStyle(
+                              color: DefaultTheme.grayscale[Grayscale.gray],
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500),
+                        ),
                         Row(
                           children: [
                             for (var eggGroup in pokemonDetails.eggGroups)
                               Tag(
                                 text: eggGroup,
                                 isEggGroup: true,
-                              )
+                              ),
                           ],
-                        )
+                        ),
                       ],
-                    )
+                    ),
                   ],
-                ),
+                )
               ],
             ),
           )
