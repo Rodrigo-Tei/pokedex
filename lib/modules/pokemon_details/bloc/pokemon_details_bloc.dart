@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/helpers/pokemon_strings_helper.dart';
 import 'package:pokedex/models/pokemon_details.dart';
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_event.dart';
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_state.dart';
@@ -14,6 +15,10 @@ class PokemonDetailsBloc
       emit(PokemonDetailsLoading());
       PokemonDetails pokemonDetails =
           await pokemonDetailsRepository.getPokemonDetails(event.pokedexNumber);
+      for (int i = 0; i < pokemonDetails.eggGroups.length; i++) {
+        pokemonDetails.eggGroups[i] =
+            capitalizeFirstLetter(pokemonDetails.eggGroups[i]);
+      }
       emit(PokemonDetailsLoaded(pokemonDetails));
     });
   }

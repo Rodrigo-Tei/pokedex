@@ -19,6 +19,15 @@ class AboutTab extends StatelessWidget {
     required this.pokemonDetails,
   }) : super(key: key);
 
+  static const rowSpacer = TableRow(children: [
+    SizedBox(
+      height: 4.0,
+    ),
+    SizedBox(
+      height: 4.0,
+    )
+  ]);
+
   Widget _buildSmallTextShimmer() {
     return Shimmer.fromColors(
       baseColor: DefaultTheme.grayscale[Grayscale.lightGray]!,
@@ -108,118 +117,128 @@ class AboutTab extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildWeightAndHeightCard() {
     return Container(
-      margin: const EdgeInsets.all(24.0),
-      child: Column(
+      margin: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(8.0),
+        ),
+        color: DefaultTheme.grayscale[Grayscale.white],
+        boxShadow: [
+          BoxShadow(
+            color: DefaultTheme.grayscale[Grayscale.lightGray]!,
+            spreadRadius: 2,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      width: double.infinity,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          loading
-              ? _buildBigTextShimmer(context)
-              : Text(
-                  pokemonDetails.flavorText,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 16.0),
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-              color: DefaultTheme.grayscale[Grayscale.white],
-              boxShadow: [
-                BoxShadow(
-                  color: DefaultTheme.grayscale[Grayscale.lightGray]!,
-                  spreadRadius: 2,
-                  blurRadius: 6,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+          _buildWeightAndHeight(
+              "Height", decimeterToMeter(pokemon.height).toString()),
+          const SizedBox(width: 12.0),
+          _buildWeightAndHeight(
+              "Weight", hectogramToKilogram(pokemon.weight).toString()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFlavourText(context) {
+    return loading
+        ? _buildBigTextShimmer(context)
+        : Text(
+            pokemonDetails.flavorText,
+            style: const TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
             ),
-            width: double.infinity,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildWeightAndHeight(
-                    "Height", decimeterToMeter(pokemon.height).toString()),
-                const SizedBox(width: 12.0),
-                _buildWeightAndHeight(
-                    "Weight", hectogramToKilogram(pokemon.weight).toString()),
-              ],
+          );
+  }
+
+  Widget _buildBreedingDetails() {
+    return Container(
+      margin: const EdgeInsets.only(top: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Breeding",
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 18.0,
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Breeding",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18.0,
+          const SizedBox(height: 16.0),
+          Table(
+            children: [
+              TableRow(
+                children: [
+                  Text(
+                    "Gender",
+                    style: TextStyle(
+                        color: DefaultTheme.grayscale[Grayscale.gray],
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w500),
                   ),
-                ),
-                const SizedBox(height: 4.0),
-                Table(
-                  children: [
-                    TableRow(
-                      children: [
-                        Text(
-                          "Egg Groups",
-                          style: TextStyle(
-                              color: DefaultTheme.grayscale[Grayscale.gray],
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        pokemonDetails.genderRate == -1
-                            ? const Text("Gender unknown")
-                            : Row(
+                  pokemonDetails.genderRate == -1
+                      ? const Text("Gender unknown")
+                      : Row(
+                          children: [
+                            SizedBox(
+                              width: 80.0,
+                              child: Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.male,
-                                        color: getColorFromType("Water"),
-                                      ),
-                                      loading
-                                          ? _buildSmallTextShimmer()
-                                          : Text(
-                                              "${(100 - convertGenderRate(pokemonDetails.genderRate)).toString()}%"),
-                                    ],
+                                  Icon(
+                                    Icons.male,
+                                    color: getColorFromType("Water"),
                                   ),
-                                  const SizedBox(width: 8.0),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.female,
-                                        color: getColorFromType("Psychic"),
-                                      ),
-                                      loading
-                                          ? _buildSmallTextShimmer()
-                                          : Text(
-                                              "${convertGenderRate(pokemonDetails.genderRate).toString()}%")
-                                    ],
-                                  ),
+                                  loading
+                                      ? _buildSmallTextShimmer()
+                                      : Text(
+                                          "${(100 - convertGenderRate(pokemonDetails.genderRate)).toString()}%"),
                                 ],
                               ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        Text(
-                          "Gender",
-                          style: TextStyle(
-                              color: DefaultTheme.grayscale[Grayscale.gray],
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(width: 8.0),
+                            SizedBox(
+                              width: 80.0,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.female,
+                                    color: getColorFromType("Psychic"),
+                                  ),
+                                  loading
+                                      ? _buildSmallTextShimmer()
+                                      : Text(
+                                          "${convertGenderRate(pokemonDetails.genderRate).toString()}%")
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        Row(
+                ],
+              ),
+              rowSpacer,
+              TableRow(
+                children: [
+                  Text(
+                    "Egg Groups",
+                    style: TextStyle(
+                        color: DefaultTheme.grayscale[Grayscale.gray],
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  loading
+                      ? _buildSmallTextShimmer()
+                      : Row(
                           children: [
                             for (var eggGroup in pokemonDetails.eggGroups)
                               Tag(
@@ -228,13 +247,24 @@ class AboutTab extends StatelessWidget {
                               ),
                           ],
                         ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
+                ],
+              ),
+            ],
           )
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(24.0),
+      child: Column(
+        children: [
+          _buildFlavourText(context),
+          _buildWeightAndHeightCard(),
+          _buildBreedingDetails(),
         ],
       ),
     );

@@ -14,7 +14,7 @@ class Tag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: isEggGroup == true ? 80 : 75.0,
+      width: isEggGroup == true ? 80.0 : 75.0,
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
       alignment: Alignment.center,
       margin: const EdgeInsets.symmetric(vertical: 2.0),
