@@ -38,13 +38,15 @@ class PokemonCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          PageRouteBuilder(
+            transitionDuration: const Duration(seconds: 1),
+            reverseTransitionDuration: const Duration(milliseconds: 500),
             settings: RouteSettingsHelper.getRouteSettings(
               path: '/PokemonList/PokemonDetailsPage',
               description: 'Pokemon Details Page',
               origin: '/PokemonList',
             ),
-            builder: (_) => PokemonDetailsPage(
+            pageBuilder: (_, __, ___) => PokemonDetailsPage(
               pokemon: pokemon,
             ),
           ),
@@ -63,7 +65,7 @@ class PokemonCard extends StatelessWidget {
           image: const DecorationImage(
             opacity: 0.15,
             image: AssetImage(
-              'lib/assets/images/pokeball-icon-white.png',
+              'lib/assets/images/pokeball-icon-white.png', //TODO: SEND TO CONSTS
             ),
             fit: BoxFit.none,
             scale: 2.6,

@@ -136,7 +136,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                       tabs: const [
                         Tab(text: "About"),
                         Tab(
-                          text: "Base stats",
+                          text: "Stats",
                         ),
                         Tab(text: "Evolution"),
                         Tab(text: "Moves"),
