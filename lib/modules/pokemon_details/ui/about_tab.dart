@@ -263,9 +263,9 @@ class AboutTab extends StatelessWidget {
                       ? _buildSmallTextShimmer()
                       : Text('${pokemonDetails.hatchCounter.toString()} steps')
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -17,3 +17,7 @@ double convertGenderRate(int genderRate) {
 int buildHatchCounter(int hatchCounter) {
   return hatchCounter * 257;
 }
+
+double setStatPercentage(int statValue) {
+  return statValue / 255;
+}
