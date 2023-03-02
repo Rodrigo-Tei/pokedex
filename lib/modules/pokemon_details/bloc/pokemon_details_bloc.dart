@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/helpers/build_pokemon_number.dart';
 import 'package:pokedex/helpers/pokemon_strings_helper.dart';
 import 'package:pokedex/models/pokemon_details.dart';
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_event.dart';
@@ -19,6 +20,8 @@ class PokemonDetailsBloc
         pokemonDetails.eggGroups[i] =
             capitalizeFirstLetter(pokemonDetails.eggGroups[i]);
       }
+      pokemonDetails.hatchCounter =
+          buildHatchCounter(pokemonDetails.hatchCounter);
       emit(PokemonDetailsLoaded(pokemonDetails));
     });
   }

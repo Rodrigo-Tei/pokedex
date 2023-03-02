@@ -10,6 +10,7 @@ import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_bloc.dart';
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_event.dart';
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_state.dart';
 import 'package:pokedex/modules/pokemon_details/ui/about_tab.dart';
+import 'package:pokedex/modules/pokemon_details/ui/stats_tab.dart';
 import 'package:pokedex/theme/colors.dart';
 
 class PokemonDetailsPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
     with TickerProviderStateMixin {
   Pokemon get pokemon => widget.pokemon;
   late PokemonDetailsBloc _pokemonDetailsBloc;
-  late PokemonDetails pokemonDetails = PokemonDetails('', '', 0, []);
+  late PokemonDetails pokemonDetails = PokemonDetails('', '', 0, [], 0);
 
   late bool _loading = false;
 
@@ -151,7 +152,9 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                         pokemon: pokemon,
                         pokemonDetails: pokemonDetails,
                       ),
-                      const Text("BASE STATS "),
+                      StatsTab(
+                        pokemonDetails: pokemonDetails,
+                      ),
                       const Text("EVOLUTION "),
                       const Text("MOVES "),
                     ],

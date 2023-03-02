@@ -249,6 +249,21 @@ class AboutTab extends StatelessWidget {
                         ),
                 ],
               ),
+              rowSpacer,
+              TableRow(
+                children: [
+                  Text(
+                    "Hatch Time",
+                    style: TextStyle(
+                        color: DefaultTheme.grayscale[Grayscale.gray],
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  loading
+                      ? _buildSmallTextShimmer()
+                      : Text('${pokemonDetails.hatchCounter.toString()} steps')
+                ],
+              )
             ],
           )
         ],
@@ -260,12 +275,14 @@ class AboutTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(24.0),
-      child: Column(
-        children: [
-          _buildFlavourText(context),
-          _buildWeightAndHeightCard(),
-          _buildBreedingDetails(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildFlavourText(context),
+            _buildWeightAndHeightCard(),
+            _buildBreedingDetails(),
+          ],
+        ),
       ),
     );
   }

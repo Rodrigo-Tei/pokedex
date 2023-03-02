@@ -13,3 +13,7 @@ double decimeterToMeter(int decimeter) {
 double convertGenderRate(int genderRate) {
   return genderRate * 12.5;
 }
+
+int buildHatchCounter(int hatchCounter) {
+  return hatchCounter * 257;
+}
