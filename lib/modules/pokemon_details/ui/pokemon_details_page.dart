@@ -28,6 +28,9 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
   Pokemon get pokemon => widget.pokemon;
   late PokemonDetailsBloc _pokemonDetailsBloc;
   late PokemonDetails pokemonDetails = PokemonDetails('', '', 0, [], 0);
+  late final AnimationController _controller =
+      AnimationController(vsync: this, duration: const Duration(seconds: 2))
+        ..repeat();
 
   late bool _loading = false;
 
@@ -36,6 +39,12 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
     super.initState();
     _pokemonDetailsBloc = context.read<PokemonDetailsBloc>();
     _pokemonDetailsBloc.add(FetchPokemonDetails(pokemon.pokedexNumber));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   Future<void> _handleListener(
@@ -189,6 +198,26 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
     );
   }
 
+  Widget _buildBackgroundImage() {
+    return RotationTransition(
+      alignment: const Alignment(0, -0.29),
+      turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            opacity: 0.2,
+            image: AssetImage(
+              'lib/assets/images/pokeball-icon-white.png', //TODO: SEND TO CONSTS
+            ),
+            fit: BoxFit.none,
+            scale: 1.5,
+            alignment: Alignment(0, -0.5),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PokemonDetailsBloc, PokemonDetailsState>(
@@ -203,6 +232,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
               _buildDetailsHeader(),
               Stack(
                 children: [
+                  _buildBackgroundImage(),
                   _buildDetailsContainer(),
                   _buildPokemonImage(),
                 ],
