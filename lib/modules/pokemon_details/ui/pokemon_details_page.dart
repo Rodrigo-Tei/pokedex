@@ -153,7 +153,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                         pokemonDetails: pokemonDetails,
                       ),
                       StatsTab(
-                        pokemonDetails: pokemonDetails,
+                        pokemon: pokemon,
                         color: getColorFromType(pokemon.types[0]),
                       ),
                       const Text("EVOLUTION "),
