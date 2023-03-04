@@ -1,10 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pokedex/models/detailed_type.dart';
 
 part 'pokemon_details.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class PokemonDetails {
-  PokemonDetails(this.genera, this.flavorText, this.genderRate, this.eggGroups, this.hatchCounter);
+  PokemonDetails(this.genera, this.flavorText, this.genderRate, this.eggGroups,
+      this.hatchCounter);
 
   @JsonKey(name: 'genera', fromJson: _extractGenera)
   String genera;
@@ -14,6 +16,9 @@ class PokemonDetails {
 
   @JsonKey(name: 'egg_groups', fromJson: _extractEggGroups)
   List<String> eggGroups;
+
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  List<DetailedType>? detailedTypes;
 
   int genderRate;
   int hatchCounter;
@@ -54,6 +59,8 @@ class PokemonDetails {
 
   @override
   String toString() {
-    return 'Pokemon{genera: $genera, flavorText: $flavorText}';
+    return '''Pokemon{genera: $genera, flavorText: $flavorText, eggGroups: 
+    $eggGroups, detailedTypes: $detailedTypes, genderRate: $genderRate, 
+    hatchCounter:$hatchCounter}''';
   }
 }

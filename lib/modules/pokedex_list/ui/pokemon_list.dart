@@ -153,7 +153,7 @@ class _PokemonListState extends State<PokemonList> {
                       child: Opacity(
                         opacity: 0.1,
                         child: Image.asset(
-                          'lib/assets/images/pokeball-icon.png', //TODO: CRIAR ARQUIVO CONSTS
+                          'lib/assets/images/pokeball-icon.png', //TODO: CRIAR ARQUIVO CONSTS AND CHANGE TO NEW PNG
                           scale:
                               1.4, //TODO: PENSAR EM JEITO DE ATRELAR ISSO AO TAMANHO DA TELA
                         ),

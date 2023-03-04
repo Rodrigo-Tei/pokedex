@@ -65,7 +65,7 @@ class PokemonCard extends StatelessWidget {
           image: const DecorationImage(
             opacity: 0.15,
             image: AssetImage(
-              'lib/assets/images/pokeball-icon-white.png', //TODO: SEND TO CONSTS
+              'lib/assets/images/pokeball-icon-white.png', //TODO: SEND TO CONSTS AND CHANGE TO NEW PNG
             ),
             fit: BoxFit.none,
             scale: 2.6,

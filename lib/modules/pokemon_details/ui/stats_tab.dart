@@ -52,7 +52,7 @@ class StatsTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Base Stats",
+            "Base Stats", //TODO: ADD HEXAGONAL VIEW
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 18.0,
