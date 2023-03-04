@@ -199,19 +199,20 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
   }
 
   Widget _buildBackgroundImage() {
-    return RotationTransition(
-      alignment: const Alignment(0, -0.29),
-      turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
-      child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            opacity: 0.2,
-            image: AssetImage(
-              'lib/assets/images/pokeball-icon-white.png', //TODO: SEND TO CONSTS
+    return Container(
+      margin: const EdgeInsets.only(bottom: 256.0),
+      child: RotationTransition(
+        turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              opacity: 0.2,
+              image: AssetImage(
+                'lib/assets/images/pokeball-white.png', //TODO: SEND TO CONSTS
+              ),
+              fit: BoxFit.none,
+              scale: 1.7,
             ),
-            fit: BoxFit.none,
-            scale: 1.5,
-            alignment: Alignment(0, -0.5),
           ),
         ),
       ),
