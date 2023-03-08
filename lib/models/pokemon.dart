@@ -7,7 +7,13 @@ part 'pokemon.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Pokemon {
-  Pokemon(this.name, this.pokedexNumber, this.weight, this.height, this.stats);
+  Pokemon(
+    this.name,
+    this.pokedexNumber,
+    this.weight,
+    this.height,
+    this.stats,
+  );
 
   String name;
   int weight;
@@ -24,6 +30,9 @@ class Pokemon {
 
   @JsonKey(name: 'stats', fromJson: _extractPokemonStats)
   List<Stat> stats;
+
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  Map<String, double>? typeEffectiveness;
 
   factory Pokemon.fromJson(Map<String, dynamic> json) =>
       _$PokemonFromJson(json);
@@ -43,6 +52,6 @@ class Pokemon {
 
   @override
   String toString() {
-    return 'Pokemon{name: $name, types: $types}';
+    return 'Pokemon{name: $name, types: $types}'; //TODO: UPDATE THIS
   }
 }
