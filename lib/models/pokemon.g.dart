@@ -8,7 +8,6 @@ part of 'pokemon.dart';
 
 Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
       json['name'] as String,
-      Pokemon._extractPokemonTypes(json['types'] as List),
       json['id'] as int,
       json['weight'] as int,
       json['height'] as int,
@@ -20,6 +19,5 @@ Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
       'weight': instance.weight,
       'height': instance.height,
       'id': instance.pokedexNumber,
-      'types': instance.types,
       'stats': instance.stats,
     };

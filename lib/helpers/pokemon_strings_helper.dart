@@ -4,6 +4,10 @@ String capitalizeFirstLetter(String word) {
   return word[0].toUpperCase() + word.substring(1);
 }
 
+String undoCapitalizeFirstLetter(String word) {
+  return word[0].toLowerCase() + word.substring(1);
+}
+
 String splitPokemonName(String name) {
   return name.split('-')[0];
 }
@@ -13,8 +17,8 @@ void handlePokemonStrings(Pokemon pokemon) {
   if (pokemon.name.contains('-')) {
     pokemon.name = splitPokemonName(pokemon.name);
   }
-  for (int i = 0; i < pokemon.types.length; i++) {
-    pokemon.types[i] = capitalizeFirstLetter(pokemon.types[i]);
+  for (int i = 0; i < pokemon.types!.length; i++) {
+    pokemon.types![i].name = capitalizeFirstLetter(pokemon.types![i].name);
   }
 }
 

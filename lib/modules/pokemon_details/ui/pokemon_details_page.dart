@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/helpers/build_pokemon_number.dart';
 import 'package:pokedex/helpers/color_helper.dart';
+import 'package:pokedex/models/detailed_type.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/models/pokemon_details.dart';
 import 'package:pokedex/modules/commons/type_tag.dart';
@@ -100,7 +101,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
             children: [
               Row(
                 children: [
-                  for (String type in pokemon.types) Tag(text: type),
+                  for (PokemonType type in pokemon.types!) Tag(text: type.name),
                 ],
               ),
               Text(
@@ -139,7 +140,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                 Material(
                     color: Colors.transparent,
                     child: TabBar(
-                      indicatorColor: getColorFromType(pokemon.types[0]),
+                      indicatorColor: getColorFromType(pokemon.types![0].name),
                       labelColor: DefaultTheme.grayscale[Grayscale.black],
                       unselectedLabelColor:
                           DefaultTheme.grayscale[Grayscale.gray],
@@ -163,7 +164,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                       ),
                       StatsTab(
                         pokemon: pokemon,
-                        color: getColorFromType(pokemon.types[0]),
+                        color: getColorFromType(pokemon.types![0].name),
                       ),
                       const Text("EVOLUTION "),
                       const Text("MOVES "),
@@ -227,7 +228,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
       builder: (BuildContext context, PokemonDetailsState state) {
         return Scaffold(
           appBar: _buildAppbar(),
-          backgroundColor: getColorFromType(pokemon.types[0]),
+          backgroundColor: getColorFromType(pokemon.types![0].name),
           body: Stack(
             children: [
               _buildDetailsHeader(),

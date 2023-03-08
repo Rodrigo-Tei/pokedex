@@ -6,59 +6,19 @@ part of 'detailed_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DetailedType _$DetailedTypeFromJson(Map<String, dynamic> json) => DetailedType(
+PokemonType _$PokemonTypeFromJson(Map<String, dynamic> json) => PokemonType(
       json['name'] as String,
-      (json['no_damage_to'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
-      (json['half_damage_to'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
-      (json['single_damage_to'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
-      (json['double_damage_to'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
-      (json['no_damage_from'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
-      (json['half_damage_from'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
-      (json['single_damage_from'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
-      (json['double_damage_from'] as List<dynamic>)
-          .map((e) => (e as Map<String, dynamic>).map(
-                (k, e) => MapEntry(k, (e as num).toDouble()),
-              ))
-          .toList(),
+      (json['damage_relations_to'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, (e as num).toDouble()),
+      ),
+      (json['damage_relations_from'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, (e as num).toDouble()),
+      ),
     );
 
-Map<String, dynamic> _$DetailedTypeToJson(DetailedType instance) =>
+Map<String, dynamic> _$PokemonTypeToJson(PokemonType instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'no_damage_to': instance.noDamageTo,
-      'half_damage_to': instance.halfDamageTo,
-      'single_damage_to': instance.singleDamageTo,
-      'double_damage_to': instance.doubleDamageTo,
-      'no_damage_from': instance.noDamageFrom,
-      'half_damage_from': instance.halfDamageFrom,
-      'single_damage_from': instance.singleDamageFrom,
-      'double_damage_from': instance.doubleDamageFrom,
+      'damage_relations_to': instance.damageRelationsTo,
+      'damage_relations_from': instance.damageRelationsFrom,
     };

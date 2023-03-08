@@ -17,9 +17,6 @@ class PokemonDetails {
   @JsonKey(name: 'egg_groups', fromJson: _extractEggGroups)
   List<String> eggGroups;
 
-  @JsonKey(includeToJson: false, includeFromJson: false)
-  List<DetailedType>? detailedTypes;
-
   int genderRate;
   int hatchCounter;
 
@@ -60,7 +57,7 @@ class PokemonDetails {
   @override
   String toString() {
     return '''Pokemon{genera: $genera, flavorText: $flavorText, eggGroups: 
-    $eggGroups, detailedTypes: $detailedTypes, genderRate: $genderRate, 
+    $eggGroups, genderRate: $genderRate, 
     hatchCounter:$hatchCounter}''';
   }
 }

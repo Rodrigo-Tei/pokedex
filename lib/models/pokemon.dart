@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pokedex/models/detailed_type.dart';
 import 'package:pokedex/models/stat.dart';
 
 part 'pokemon.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Pokemon {
-  Pokemon(this.name, this.types, this.pokedexNumber, this.weight, this.height,
-      this.stats);
+  Pokemon(this.name, this.pokedexNumber, this.weight, this.height, this.stats);
+
   String name;
   int weight;
   int height;
+
   @JsonKey(name: 'id')
   int pokedexNumber;
-  @JsonKey(name: 'types', fromJson: _extractPokemonTypes)
-  List<String> types;
+
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  List<PokemonType>? types;
+
   @JsonKey(includeToJson: false, includeFromJson: false)
   Image? image;
+
   @JsonKey(name: 'stats', fromJson: _extractPokemonStats)
   List<Stat> stats;
 
@@ -24,14 +29,6 @@ class Pokemon {
       _$PokemonFromJson(json);
 
   Map<String, dynamic> toJson() => _$PokemonToJson(this);
-
-  static List<String> _extractPokemonTypes(List<dynamic> types) {
-    List<String> pokemonTypes = List.empty(growable: true);
-    for (var type in types) {
-      pokemonTypes.add(type["type"]["name"]);
-    }
-    return pokemonTypes;
-  }
 
   static List<Stat> _extractPokemonStats(List<dynamic> stats) {
     List<Stat> pokemonStats = List.empty(growable: true);

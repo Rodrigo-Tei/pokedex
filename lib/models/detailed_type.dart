@@ -3,40 +3,21 @@ import 'package:json_annotation/json_annotation.dart';
 part 'detailed_type.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class DetailedType {
-  DetailedType(
-    this.name,
-    this.noDamageTo,
-    this.halfDamageTo,
-    this.singleDamageTo,
-    this.doubleDamageTo,
-    this.noDamageFrom,
-    this.halfDamageFrom,
-    this.singleDamageFrom,
-    this.doubleDamageFrom,
-  );
+class PokemonType {
+  PokemonType(this.name, this.damageRelationsTo, this.damageRelationsFrom);
 
   String name;
-  List<Map<String, double>> noDamageTo;
-  List<Map<String, double>> halfDamageTo;
-  List<Map<String, double>> singleDamageTo;
-  List<Map<String, double>> doubleDamageTo;
-  List<Map<String, double>> noDamageFrom;
-  List<Map<String, double>> halfDamageFrom;
-  List<Map<String, double>> singleDamageFrom;
-  List<Map<String, double>> doubleDamageFrom;
+  Map<String, double> damageRelationsTo;
+  Map<String, double> damageRelationsFrom;
 
-  factory DetailedType.fromJson(Map<String, dynamic> json) =>
-      _$DetailedTypeFromJson(json);
+  factory PokemonType.fromJson(Map<String, dynamic> json) =>
+      _$PokemonTypeFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DetailedTypeToJson(this);
+  Map<String, dynamic> toJson() => _$PokemonTypeToJson(this);
 
   @override
   String toString() {
-    return '''DetailedType{name: $name, noDamageTo: $noDamageTo, 
-    halfDamageTo: $halfDamageTo, singleDamageTo: $singleDamageTo, 
-    doubleDamageTo: $doubleDamageTo, noDamageFrom: $noDamageFrom
-    halfDamageFrom: $halfDamageFrom, singleDamageFrom: $singleDamageFrom
-    doubleDamageFrom: $doubleDamageFrom}''';
+    return '''PokemonType{name: $name, damageRelationsTo: $damageRelationsTo
+    damageRelationsFrom: $damageRelationsFrom}''';
   }
 }
