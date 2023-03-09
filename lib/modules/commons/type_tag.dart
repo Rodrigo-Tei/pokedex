@@ -17,7 +17,7 @@ class Tag extends StatelessWidget {
       width: isEggGroup == true ? 80.0 : 75.0,
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
       alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(vertical: 2.0),
+      margin: const EdgeInsets.only(top: 2.0, bottom: 2.0, right: 4.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(
           Radius.circular(16.0),
