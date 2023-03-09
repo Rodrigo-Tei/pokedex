@@ -25,11 +25,15 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     }
 
     for (String singleType in constants.types) {
-      final Map<String, double> newType = {
-        singleType: types[0].damageRelationsFrom[singleType]! *
-            types[1].damageRelationsFrom[singleType]!
-      };
-      definitiveDamageRelationsFrom.addAll(newType);
+      if (types.length == 1) {
+        definitiveDamageRelationsFrom.addAll(types[0].damageRelationsFrom);
+      } else {
+        final Map<String, double> newType = {
+          singleType: types[0].damageRelationsFrom[singleType]! *
+              types[1].damageRelationsFrom[singleType]!
+        };
+        definitiveDamageRelationsFrom.addAll(newType);
+      }
     }
 
     return definitiveDamageRelationsFrom;
@@ -46,9 +50,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
       _pokemonList += tmpPokemonList;
       for (Pokemon pokemon in _pokemonList) {
         handlePokemonStrings(pokemon);
-        if (pokemon.types!.length > 1) {
-          pokemon.typeEffectiveness = buildTypeEffectiveness(pokemon.types!);
-        }
+        pokemon.typeEffectiveness = buildTypeEffectiveness(pokemon.types!);
       }
       emit(PokemonListLoaded(_pokemonList));
     });
