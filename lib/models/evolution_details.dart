@@ -7,53 +7,51 @@ part 'evolution_details.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class EvolutionDetails {
-  EvolutionDetails(
-    this.item,
-    this.gender,
-    this.heldItem,
-    this.knownMove,
-    this.knownMoveType,
-    this.location,
-    this.minAffection,
-    this.minBeauty,
-    this.minHappiness,
-    this.minLevel,
-    this.needsOverworldRain,
-    this.partySpecies,
-    this.partyType,
-    this.relativePhysicalStats,
-    this.timeOfDay,
-    this.tradeSpecies,
-    this.trigger,
-    this.turnUpsideDown,
-  );
+  EvolutionDetails();
 
-  Item item;
-  String trigger; //TRATAR
-  int gender;
-  Item heldItem;
-  Move knownMove;
-  String knownMoveType; //TRATAR
-  String location; //TRATAR
-  int minLevel;
-  int minHappiness;
-  int minBeauty;
-  int minAffection;
-  bool needsOverworldRain;
-  String partySpecies; //TRATAR
-  String partyType; //TRATAR
-  int relativePhysicalStats;
-  String timeOfDay;
-  String tradeSpecies; //TRATAR
-  bool turnUpsideDown;
+  Item? item;
+  @JsonKey(fromJson: _getName)
+  String? trigger;
+  int? gender;
+  Item? heldItem;
+  @JsonKey(fromJson: _getName)
+  String? knownMove;
+  @JsonKey(fromJson: _getName)
+  String? knownMoveType;
+  @JsonKey(fromJson: _getName)
+  String? location;
+  int? minLevel;
+  int? minHappiness;
+  int? minBeauty;
+  int? minAffection;
+  bool? needsOverworldRain;
+  @JsonKey(fromJson: _getName)
+  String? partySpecies;
+  @JsonKey(fromJson: _getName)
+  String? partyType;
+  int? relativePhysicalStats;
+  String? timeOfDay;
+  @JsonKey(fromJson: _getName)
+  String? tradeSpecies;
+  bool? turnUpsideDown;
 
   factory EvolutionDetails.fromJson(Map<String, dynamic> json) =>
       _$EvolutionDetailsFromJson(json);
 
   Map<String, dynamic> toJson() => _$EvolutionDetailsToJson(this);
 
+  static String? _getName(Map<String, dynamic>? object) {
+    return object?['name'];
+  }
+
   @override
   String toString() {
-    return '''''';
+    return '''EvolutionDetails{item: $item, trigger: $trigger,
+    gender: $gender, heldItem: $heldItem, knownMove: $knownMove,
+    knownMoveType: $knownMoveType, location: $location,
+    minLevel: $minLevel, minHappiness: $minHappiness, minBeauty: $minBeauty,
+    minAffection: $minAffection, needsOverworldRain: $needsOverworldRain,
+    partySpecies: $partySpecies, partyType: $partyType, timeOfDay: $timeOfDay,
+    tradeSpecies: $tradeSpecies, turnUpsideDown: $turnUpsideDown}''';
   }
 }

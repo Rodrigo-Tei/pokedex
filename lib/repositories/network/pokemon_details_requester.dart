@@ -21,7 +21,8 @@ class PokemonDetailsRequester {
       final PokemonDetails pokemonDetails =
           PokemonDetails.fromJson(responseJson);
       pokemonDetails.flavorText = handleLineBreak(pokemonDetails.flavorText);
-      getEvolutionChain(responseJson["evolution_chain"]["url"]);
+      pokemonDetails.evolutionChain =
+          await getEvolutionChain(responseJson["evolution_chain"]["url"]);
       return pokemonDetails;
     } else {
       var msg =
@@ -30,8 +31,7 @@ class PokemonDetailsRequester {
     }
   }
 
-  // static Future<EvolutionChain> getEvolutionChain(String url) {
-  static void getEvolutionChain(String url) async {
+  static Future<EvolutionChain> getEvolutionChain(String url) async {
     final splittedUrl = url.split('/');
     final chainIndex = splittedUrl[splittedUrl.length - 2];
     final pokemonDetailsUri = Uri.https(
@@ -43,7 +43,9 @@ class PokemonDetailsRequester {
 
     if (response.statusCode == HttpStatus.ok) {
       final Map<String, dynamic> responseJson = json.decode(response.body);
-      print('ok');
+      final EvolutionChain evolutionChain =
+          EvolutionChain.fromJson(responseJson["chain"]);
+      return evolutionChain;
     } else {
       var msg =
           'Unexpected ${response.statusCode} status code: ${response.reasonPhrase}, ${response.body}';

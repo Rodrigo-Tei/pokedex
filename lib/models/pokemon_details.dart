@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pokedex/models/detailed_type.dart';
+import 'package:pokedex/models/evolution_chain.dart';
 
 part 'pokemon_details.g.dart';
 
@@ -19,6 +19,9 @@ class PokemonDetails {
 
   int genderRate;
   int hatchCounter;
+
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  EvolutionChain? evolutionChain;
 
   factory PokemonDetails.fromJson(Map<String, dynamic> json) =>
       _$PokemonDetailsFromJson(json);
