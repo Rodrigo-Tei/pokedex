@@ -11,6 +11,7 @@ import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_bloc.dart';
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_event.dart';
 import 'package:pokedex/modules/pokemon_details/bloc/pokemon_details_state.dart';
 import 'package:pokedex/modules/pokemon_details/ui/about_tab.dart';
+import 'package:pokedex/modules/pokemon_details/ui/evolution_tab.dart';
 import 'package:pokedex/modules/pokemon_details/ui/stats_tab.dart';
 import 'package:pokedex/theme/colors.dart';
 
@@ -166,7 +167,9 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                         pokemon: pokemon,
                         color: getColorFromType(pokemon.types![0].name),
                       ),
-                      const Text("EVOLUTION "),
+                      EvolutionTab(
+                          loading: _loading,
+                          evolutionChain: pokemonDetails.evolutionChain),
                       const Text("MOVES "),
                     ],
                   ),
