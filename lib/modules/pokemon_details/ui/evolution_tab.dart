@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/helpers/pokemon_strings_helper.dart';
 import 'package:pokedex/models/evolution_chain.dart';
+import 'package:pokedex/models/evolution_details.dart';
 
 class EvolutionTab extends StatelessWidget {
   final EvolutionChain? evolutionChain;
@@ -16,13 +18,26 @@ class EvolutionTab extends StatelessWidget {
     return Text('ESSE BICHO NUM EVOLUI');
   }
 
+  Widget _buildTile(evolutionChain1, evolutionChain2) {
+    // return Text('${evolutionChain1.name} -> ${evolutionChain2.name}');
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(capitalizeFirstLetter(evolutionChain1.name)),
+        Icon(Icons.arrow_forward_rounded),
+        Text(capitalizeFirstLetter(evolutionChain2.name)),
+      ],
+    );
+  }
+
   List<Widget> _buildTileChain(
       List<Widget> chainList, EvolutionChain evolutionChain) {
     if (evolutionChain.chain.isNotEmpty) {
-      chainList.add(
-          Text('${evolutionChain.name} -> ${evolutionChain.chain[0].name}'));
-      if (evolutionChain.chain[0].chain.isNotEmpty) {
-        _buildTileChain(chainList, evolutionChain.chain[0]);
+      for (EvolutionChain evolution in evolutionChain.chain) {
+        chainList.add(_buildTile(evolutionChain, evolution));
+        if (evolution.chain.isNotEmpty) {
+          _buildTileChain(chainList, evolution);
+        }
       }
     }
     return chainList;
@@ -38,11 +53,13 @@ class EvolutionTab extends StatelessWidget {
             child: SingleChildScrollView(
               child: evolutionChain!.chain.isEmpty
                   ? _buildPlaceholder()
-                  : Column(children: [
-                      for (Widget widet
-                          in _buildTileChain(chainList, evolutionChain!))
-                        widet
-                    ]),
+                  : Column(
+                      children: [
+                        for (Widget widet
+                            in _buildTileChain(chainList, evolutionChain!))
+                          widet
+                      ],
+                    ),
             ),
           );
   }
