@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pokedex/models/evolution_details.dart';
+import 'package:pokedex/models/pokemon.dart';
 
 part 'evolution_chain.g.dart';
 
@@ -12,6 +14,8 @@ class EvolutionChain {
   String name;
   @JsonKey(name: 'evolves_to')
   List<EvolutionChain> chain;
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  Pokemon? pokemon;
 
   factory EvolutionChain.fromJson(Map<String, dynamic> json) =>
       _$EvolutionChainFromJson(json);

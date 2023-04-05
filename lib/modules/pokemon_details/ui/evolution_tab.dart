@@ -4,6 +4,7 @@ import 'package:pokedex/models/evolution_chain.dart';
 import 'package:pokedex/models/evolution_details.dart';
 
 class EvolutionTab extends StatelessWidget {
+  //TODO: CHANGE TO STATEFUL
   final EvolutionChain? evolutionChain;
   final bool loading;
 
@@ -18,14 +19,31 @@ class EvolutionTab extends StatelessWidget {
     return Text('ESSE BICHO NUM EVOLUI');
   }
 
-  Widget _buildTile(evolutionChain1, evolutionChain2) {
+  Widget _buildTile(
+      EvolutionChain evolutionChain1, EvolutionChain evolutionChain2) {
     // return Text('${evolutionChain1.name} -> ${evolutionChain2.name}');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(capitalizeFirstLetter(evolutionChain1.name)),
+        Column(
+          children: [
+            SizedBox(
+              width: 60,
+              child: evolutionChain1.pokemon?.image!,
+            ),
+            Text(capitalizeFirstLetter(evolutionChain1.name)),
+          ],
+        ),
         Icon(Icons.arrow_forward_rounded),
-        Text(capitalizeFirstLetter(evolutionChain2.name)),
+        Column(
+          children: [
+            SizedBox(
+              width: 60,
+              child: evolutionChain2.pokemon?.image!,
+            ),
+            Text(capitalizeFirstLetter(evolutionChain2.name)),
+          ],
+        ),
       ],
     );
   }
@@ -54,10 +72,23 @@ class EvolutionTab extends StatelessWidget {
               child: evolutionChain!.chain.isEmpty
                   ? _buildPlaceholder()
                   : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (Widget widet
-                            in _buildTileChain(chainList, evolutionChain!))
-                          widet
+                        const Text(
+                          'Evolution Chain',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        const SizedBox(height: 12.0),
+                        Column(
+                          children: [
+                            for (Widget tile
+                                in _buildTileChain(chainList, evolutionChain!))
+                              tile
+                          ],
+                        ),
                       ],
                     ),
             ),
