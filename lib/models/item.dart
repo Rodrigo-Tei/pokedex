@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'item.g.dart';
@@ -8,6 +9,7 @@ class Item {
 
   String name;
   String url;
+  Image? image;
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 

@@ -5,6 +5,8 @@ const String pokemonType = "/api/v2/type/";
 const String evolutionChain = "/api/v2/evolution-chain/";
 const String pokemonImageUrl =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
+const String itemImageUrl =
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/";
 
 const List<String> types = [
   "normal",

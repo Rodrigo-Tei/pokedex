@@ -67,6 +67,12 @@ class PokemonDetailsRequester {
         if (evolution.chain.isNotEmpty) {
           handlePokemonInEvolutionchain(evolution);
         }
+        if (evolution.evolutionDetails![0].item != null) {
+          evolution.evolutionDetails![0].item!.image = Image.network(
+            '${constants.itemImageUrl}${evolution.evolutionDetails![0].item!.name}.png', //TODO: THIS IS A FIELD OF THE API
+            fit: BoxFit.fill,
+          );
+        }
       }
     }
   }

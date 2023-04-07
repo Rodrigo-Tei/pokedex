@@ -36,7 +36,7 @@ class EvolutionTab extends StatelessWidget {
     late List<Widget> conditionList = List.empty(growable: true);
     if (conditions.gender != null) {
       if (conditions.gender == 0) {
-        conditionList.add(Text('male'));
+        conditionList.add(Text('male')); //TODO CHANGE TO ICON
       } else {
         conditionList.add(Text('female'));
       }
@@ -45,28 +45,28 @@ class EvolutionTab extends StatelessWidget {
       conditionList.add(Text(conditions.heldItem!.name));
     }
     if (conditions.item != null) {
-      conditionList.add(Text(conditions.item!.name));
+      conditionList.add(SizedBox(width: 24.0, child: conditions.item!.image));
     }
     if (conditions.knownMove != null) {
-      conditionList.add(Text(conditions.knownMove!));
+      conditionList.add(Text('Must know ${conditions.knownMove!}'));
     }
     if (conditions.knownMoveType != null) {
-      conditionList.add(Text(conditions.knownMoveType!));
+      conditionList.add(Text('Move Type ${conditions.knownMoveType!}'));
     }
     if (conditions.location != null) {
       conditionList.add(Text(conditions.location!));
     }
     if (conditions.minAffection != null) {
-      conditionList.add(Text(conditions.minAffection!.toString()));
+      conditionList.add(Text('Affection'));
     }
     if (conditions.minBeauty != null) {
-      conditionList.add(Text(conditions.minBeauty!.toString()));
+      conditionList.add(Text('Beauty'));
     }
     if (conditions.minHappiness != null) {
-      conditionList.add(Text(conditions.minHappiness!.toString()));
+      conditionList.add(Text('Happiness'));
     }
     if (conditions.minLevel != null) {
-      conditionList.add(Text(conditions.minLevel!.toString()));
+      conditionList.add(Text('Level ${conditions.minLevel!.toString()}'));
     }
     if (conditions.needsOverworldRain == true) {
       conditionList.add(Text(conditions.needsOverworldRain!.toString()));
@@ -75,19 +75,19 @@ class EvolutionTab extends StatelessWidget {
       conditionList.add(Text(conditions.partySpecies!));
     }
     if (conditions.partyType != null) {
-      conditionList.add(Text(conditions.partyType!));
+      conditionList.add(Text('Party type ${conditions.partyType!}'));
     }
     if (conditions.relativePhysicalStats != null) {
       conditionList.add(Text(conditions.relativePhysicalStats!.toString()));
     }
-    if (conditions.timeOfDay != null || conditions.timeOfDay != '') {
+    if (conditions.timeOfDay != null && conditions.timeOfDay != '') {
       conditionList.add(Text(conditions.timeOfDay!));
     }
     if (conditions.tradeSpecies != null) {
       conditionList.add(Text(conditions.tradeSpecies!));
     }
     if (conditions.trigger == 'trade') {
-      conditionList.add(Text('trade'));
+      conditionList.add(Text('Trade')); //TODO: CHANGE TO ICON
     }
     return conditionList;
   }
