@@ -9,7 +9,19 @@ String undoCapitalizeFirstLetter(String word) {
 }
 
 String splitPokemonName(String name) {
-  return name.split('-')[0];
+  if (name.contains('jr')) {
+    name = "${name.split('-')[0]} Jr.";
+  }
+  switch (name) {
+    case 'Mr-mime':
+      return 'Mr. Mime';
+    case 'Ho-oh':
+      return name;
+    case 'Porygon-Z':
+      return name;
+    default:
+      return name.split('-')[0];
+  }
 }
 
 void handlePokemonStrings(Pokemon pokemon) {

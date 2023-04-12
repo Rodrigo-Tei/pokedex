@@ -4,16 +4,24 @@ import 'package:pokedex/models/evolution_chain.dart';
 import 'package:pokedex/models/evolution_details.dart';
 import 'package:pokedex/theme/colors.dart';
 
-class EvolutionTab extends StatelessWidget {
-  //TODO: CHANGE TO STATEFUL
-  final EvolutionChain? evolutionChain;
-  final bool loading;
-
+class EvolutionTab extends StatefulWidget {
   const EvolutionTab({
     required this.evolutionChain,
     required this.loading,
     Key? key,
   }) : super(key: key);
+
+  final EvolutionChain? evolutionChain;
+  final bool loading;
+
+  @override
+  State<EvolutionTab> createState() => _EvolutionTabState();
+}
+
+@override
+class _EvolutionTabState extends State<EvolutionTab> {
+  EvolutionChain? get evolutionChain => widget.evolutionChain;
+  bool get loading => widget.loading;
 
   static const rowSpacer = TableRow(children: [
     SizedBox(
@@ -42,7 +50,8 @@ class EvolutionTab extends StatelessWidget {
       }
     }
     if (conditions.heldItem != null) {
-      conditionList.add(Text(conditions.heldItem!.name));
+      conditionList
+          .add(SizedBox(width: 24.0, child: conditions.heldItem!.image));
     }
     if (conditions.item != null) {
       conditionList.add(SizedBox(width: 24.0, child: conditions.item!.image));

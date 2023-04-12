@@ -11,11 +11,12 @@ import 'package:pokedex/constants.dart' as constants;
 
 class PokemonListRequester {
   static Future<List<Pokemon>> getPokemonList(int pageIndex) async {
-    int index = 20 * pageIndex;
+    const int pageSize = 20;
+    final int index = pageSize * pageIndex;
     final pokemonListUri = Uri.https(
       constants.pokeapiBaseUrl,
       constants.pokemonPath,
-      {'limit': '20', 'offset': index.toString()},
+      {'limit': pageSize.toString(), 'offset': index.toString()},
     );
 
     final response = await BaseApiRequester.send(pokemonListUri);

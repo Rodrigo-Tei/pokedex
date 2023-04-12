@@ -61,6 +61,8 @@ class PokemonDetailsRequester {
   static void handlePokemonInEvolutionchain(
       EvolutionChain evolutionChain) async {
     evolutionChain.pokemon = await getSinglePokemon(evolutionChain.name);
+    evolutionChain.name = capitalizeFirstLetter(evolutionChain.name);
+    evolutionChain.name = splitPokemonName(evolutionChain.name);
     if (evolutionChain.chain.isNotEmpty) {
       for (EvolutionChain evolution in evolutionChain.chain) {
         evolution.pokemon = await getSinglePokemon(evolution.name);
@@ -70,6 +72,12 @@ class PokemonDetailsRequester {
         if (evolution.evolutionDetails![0].item != null) {
           evolution.evolutionDetails![0].item!.image = Image.network(
             '${constants.itemImageUrl}${evolution.evolutionDetails![0].item!.name}.png', //TODO: THIS IS A FIELD OF THE API
+            fit: BoxFit.fill,
+          );
+        }
+        if (evolution.evolutionDetails![0].heldItem != null) {
+          evolution.evolutionDetails![0].heldItem!.image = Image.network(
+            '${constants.itemImageUrl}${evolution.evolutionDetails![0].heldItem!.name}.png', //TODO: THIS IS A FIELD OF THE API
             fit: BoxFit.fill,
           );
         }

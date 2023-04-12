@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pokedex/models/item.dart';
-import 'package:pokedex/models/move.dart';
-import 'package:pokedex/models/pokemon_details.dart';
 
 part 'evolution_details.g.dart';
 
