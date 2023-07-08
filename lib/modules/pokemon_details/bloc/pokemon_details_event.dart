@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:pokedex/models/pokemon.dart';
 
 abstract class PokemonDetailsEvent extends Equatable {
   final List? _props;
@@ -10,6 +11,6 @@ abstract class PokemonDetailsEvent extends Equatable {
 }
 
 class FetchPokemonDetails extends PokemonDetailsEvent {
-  final int pokedexNumber;
-  FetchPokemonDetails(this.pokedexNumber) : super([pokedexNumber]);
+  final Pokemon pokemon;
+  FetchPokemonDetails(this.pokemon) : super([pokemon]);
 }

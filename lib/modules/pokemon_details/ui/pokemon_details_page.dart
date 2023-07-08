@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/helpers/build_pokemon_number.dart';
 import 'package:pokedex/helpers/color_helper.dart';
-import 'package:pokedex/models/detailed_type.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/models/pokemon_details.dart';
 import 'package:pokedex/modules/commons/type_tag.dart';
@@ -40,7 +39,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
   void initState() {
     super.initState();
     _pokemonDetailsBloc = context.read<PokemonDetailsBloc>();
-    _pokemonDetailsBloc.add(FetchPokemonDetails(pokemon.pokedexNumber));
+    _pokemonDetailsBloc.add(FetchPokemonDetails(pokemon));
   }
 
   @override
@@ -102,7 +101,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
             children: [
               Row(
                 children: [
-                  for (PokemonType type in pokemon.types!) Tag(text: type.name),
+                  for (String type in pokemon.types) Tag(text: type),
                 ],
               ),
               Text(
@@ -141,15 +140,13 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                 Material(
                     color: Colors.transparent,
                     child: TabBar(
-                      indicatorColor: getColorFromType(pokemon.types![0].name),
+                      indicatorColor: getColorFromType(pokemon.types[0]),
                       labelColor: DefaultTheme.grayscale[Grayscale.black],
                       unselectedLabelColor:
                           DefaultTheme.grayscale[Grayscale.gray],
                       tabs: const [
                         Tab(text: "About"),
-                        Tab(
-                          text: "Stats",
-                        ),
+                        Tab(text: "Stats"),
                         Tab(text: "Evolution"),
                         Tab(text: "Moves"),
                       ],
@@ -165,7 +162,8 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                       ),
                       StatsTab(
                         pokemon: pokemon,
-                        color: getColorFromType(pokemon.types![0].name),
+                        pokemonDetails: pokemonDetails,
+                        color: getColorFromType(pokemon.types[0]),
                       ),
                       EvolutionTab(
                           loading: _loading,
@@ -231,7 +229,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
       builder: (BuildContext context, PokemonDetailsState state) {
         return Scaffold(
           appBar: _buildAppbar(),
-          backgroundColor: getColorFromType(pokemon.types![0].name),
+          backgroundColor: getColorFromType(pokemon.types[0]),
           body: Stack(
             children: [
               _buildDetailsHeader(),

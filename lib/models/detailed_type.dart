@@ -3,21 +3,21 @@ import 'package:json_annotation/json_annotation.dart';
 part 'detailed_type.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class PokemonType {
-  PokemonType(this.name, this.damageRelationsTo, this.damageRelationsFrom);
+class DetailedType {
+  DetailedType(this.name, this.damageRelationsTo, this.damageRelationsFrom);
 
   String name;
   Map<String, double> damageRelationsTo;
   Map<String, double> damageRelationsFrom;
 
-  factory PokemonType.fromJson(Map<String, dynamic> json) =>
-      _$PokemonTypeFromJson(json);
+  factory DetailedType.fromJson(Map<String, dynamic> json) =>
+      _$DetailedTypeFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PokemonTypeToJson(this);
+  Map<String, dynamic> toJson() => _$DetailedTypeToJson(this);
 
   @override
   String toString() {
-    return '''PokemonType{name: $name, damageRelationsTo: $damageRelationsTo
+    return '''DetailedType{name: $name, damageRelationsTo: $damageRelationsTo
     damageRelationsFrom: $damageRelationsFrom}''';
   }
 }

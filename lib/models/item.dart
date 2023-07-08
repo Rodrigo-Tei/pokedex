@@ -9,6 +9,7 @@ class Item {
 
   String name;
   String url;
+  @JsonKey(includeToJson: false, includeFromJson: false)
   Image? image;
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);

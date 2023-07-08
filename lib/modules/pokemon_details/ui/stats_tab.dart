@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/helpers/build_pokemon_number.dart';
 import 'package:pokedex/helpers/pokemon_strings_helper.dart';
 import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/models/pokemon_details.dart';
 import 'package:pokedex/modules/commons/type_tag.dart';
 import 'package:pokedex/theme/colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -9,11 +10,13 @@ import 'package:percent_indicator/percent_indicator.dart';
 class StatsTab extends StatelessWidget {
   final Pokemon pokemon;
   final Color color;
+  final PokemonDetails pokemonDetails;
 
   const StatsTab({
     Key? key,
     required this.pokemon,
     required this.color,
+    required this.pokemonDetails,
   }) : super(key: key);
 
   static const rowSpacer = TableRow(children: [
@@ -109,25 +112,25 @@ class StatsTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTitleAndSubstitle("Damage Recieved"),
+        _buildTitleAndSubstitle("Weaknesses"),
         const SizedBox(height: 12.0),
         _buildTitleAndSubstitle("4x", true),
-        _buildTagRow(pokemon.typeEffectiveness!, 4.0),
+        _buildTagRow(pokemonDetails.typeEffectiveness!, 4.0),
         const SizedBox(height: 12.0),
         _buildTitleAndSubstitle("2x", true),
-        _buildTagRow(pokemon.typeEffectiveness!, 2.0),
+        _buildTagRow(pokemonDetails.typeEffectiveness!, 2.0),
         const SizedBox(height: 12.0),
         _buildTitleAndSubstitle("1x", true),
-        _buildTagRow(pokemon.typeEffectiveness!, 1.0),
+        _buildTagRow(pokemonDetails.typeEffectiveness!, 1.0),
         const SizedBox(height: 12.0),
         _buildTitleAndSubstitle("1/2x", true),
-        _buildTagRow(pokemon.typeEffectiveness!, 0.5),
+        _buildTagRow(pokemonDetails.typeEffectiveness!, 0.5),
         const SizedBox(height: 12.0),
         _buildTitleAndSubstitle("1/4x", true),
-        _buildTagRow(pokemon.typeEffectiveness!, 0.25),
+        _buildTagRow(pokemonDetails.typeEffectiveness!, 0.25),
         const SizedBox(height: 12.0),
         _buildTitleAndSubstitle("Immune To", true),
-        _buildTagRow(pokemon.typeEffectiveness!, 0),
+        _buildTagRow(pokemonDetails.typeEffectiveness!, 0),
       ],
     );
   }

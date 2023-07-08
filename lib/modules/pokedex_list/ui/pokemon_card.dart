@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/helpers/color_helper.dart';
 import 'package:pokedex/helpers/route_settings_helper.dart';
-import 'package:pokedex/models/detailed_type.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/modules/pokemon_details/ui/pokemon_details_page.dart';
 import 'package:pokedex/modules/commons/type_tag.dart';
@@ -15,10 +14,10 @@ class PokemonCard extends StatelessWidget {
     required this.pokemon,
   }) : super(key: key);
 
-  Widget _buildTypeTag(List<PokemonType> types) {
+  Widget _buildTypeTag(List<String> types) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [for (var type in types) Tag(text: type.name)],
+      children: [for (String type in types) Tag(text: type)],
     );
   }
 
@@ -75,7 +74,7 @@ class PokemonCard extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(12.0),
           ),
-          color: getColorFromType(pokemon.types![0].name),
+          color: getColorFromType(pokemon.types[0]),
         ),
         padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0),
         child: Column(
@@ -106,7 +105,7 @@ class PokemonCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                _buildTypeTag(pokemon.types!),
+                _buildTypeTag(pokemon.types),
               ],
             ),
           ],

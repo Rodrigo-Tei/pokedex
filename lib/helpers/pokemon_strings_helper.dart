@@ -29,8 +29,8 @@ void handlePokemonStrings(Pokemon pokemon) {
   if (pokemon.name.contains('-')) {
     pokemon.name = splitPokemonName(pokemon.name);
   }
-  for (int i = 0; i < pokemon.types!.length; i++) {
-    pokemon.types![i].name = capitalizeFirstLetter(pokemon.types![i].name);
+  for (int i = 0; i < pokemon.types.length; i++) {
+    pokemon.types[i] = capitalizeFirstLetter(pokemon.types[i]);
   }
 }
 

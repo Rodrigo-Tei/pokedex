@@ -6,7 +6,7 @@ part of 'detailed_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PokemonType _$PokemonTypeFromJson(Map<String, dynamic> json) => PokemonType(
+DetailedType _$DetailedTypeFromJson(Map<String, dynamic> json) => DetailedType(
       json['name'] as String,
       (json['damage_relations_to'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, (e as num).toDouble()),
@@ -16,7 +16,7 @@ PokemonType _$PokemonTypeFromJson(Map<String, dynamic> json) => PokemonType(
       ),
     );
 
-Map<String, dynamic> _$PokemonTypeToJson(PokemonType instance) =>
+Map<String, dynamic> _$DetailedTypeToJson(DetailedType instance) =>
     <String, dynamic>{
       'name': instance.name,
       'damage_relations_to': instance.damageRelationsTo,

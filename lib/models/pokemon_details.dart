@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pokedex/models/detailed_type.dart';
 import 'package:pokedex/models/evolution_chain.dart';
 
 part 'pokemon_details.g.dart';
@@ -10,13 +11,14 @@ class PokemonDetails {
 
   @JsonKey(name: 'genera', fromJson: _extractGenera)
   String genera;
-
   @JsonKey(name: 'flavor_text_entries', fromJson: _extractFlavorText)
   String flavorText;
-
   @JsonKey(name: 'egg_groups', fromJson: _extractEggGroups)
   List<String> eggGroups;
-
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<DetailedType>? detailedTypes;
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  Map<String, double>? typeEffectiveness;
   int genderRate;
   int hatchCounter;
 

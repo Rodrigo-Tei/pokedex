@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pokedex/models/detailed_type.dart';
 import 'package:pokedex/models/stat.dart';
 
 part 'pokemon.g.dart';
@@ -10,6 +9,7 @@ class Pokemon {
   Pokemon(
     this.name,
     this.pokedexNumber,
+    this.types,
     this.weight,
     this.height,
     this.stats,
@@ -18,21 +18,14 @@ class Pokemon {
   String name;
   int weight;
   int height;
-
   @JsonKey(name: 'id')
   int pokedexNumber;
-
-  @JsonKey(includeToJson: false, includeFromJson: false)
-  List<PokemonType>? types;
-
+  @JsonKey(name: 'types', fromJson: _extractPokemonTypes)
+  List<String> types;
   @JsonKey(includeToJson: false, includeFromJson: false)
   Image? image;
-
   @JsonKey(name: 'stats', fromJson: _extractPokemonStats)
   List<Stat> stats;
-
-  @JsonKey(includeToJson: false, includeFromJson: false)
-  Map<String, double>? typeEffectiveness;
 
   factory Pokemon.fromJson(Map<String, dynamic> json) =>
       _$PokemonFromJson(json);
@@ -48,6 +41,14 @@ class Pokemon {
       pokemonStats.add(singleStat);
     }
     return pokemonStats;
+  }
+
+  static List<String> _extractPokemonTypes(List types) {
+    List<String> pokemonTypes = List.empty(growable: true);
+    for (var type in types) {
+      pokemonTypes.add(type['type']['name']);
+    }
+    return pokemonTypes;
   }
 
   @override
