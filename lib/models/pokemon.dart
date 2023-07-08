@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pokedex/models/move.dart';
 import 'package:pokedex/models/stat.dart';
 
 part 'pokemon.g.dart';
@@ -13,6 +14,7 @@ class Pokemon {
     this.weight,
     this.height,
     this.stats,
+    this.moves,
   );
 
   String name;
@@ -26,6 +28,7 @@ class Pokemon {
   Image? image;
   @JsonKey(name: 'stats', fromJson: _extractPokemonStats)
   List<Stat> stats;
+  List<Move> moves;
 
   factory Pokemon.fromJson(Map<String, dynamic> json) =>
       _$PokemonFromJson(json);
@@ -53,6 +56,8 @@ class Pokemon {
 
   @override
   String toString() {
-    return 'Pokemon{name: $name, types: $types}'; //TODO: UPDATE THIS
+    return '''Pokemon{name: $name, weight: $weight, height: $height,
+              pokedexNumber: $pokedexNumber, types: $types, image: $image, 
+              stats: $stats, moves: $moves}'''; //TODO: UPDATE THIS
   }
 }

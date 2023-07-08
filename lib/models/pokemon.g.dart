@@ -13,6 +13,9 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
       json['weight'] as int,
       json['height'] as int,
       Pokemon._extractPokemonStats(json['stats'] as List),
+      (json['moves'] as List<dynamic>)
+          .map((e) => Move.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
@@ -22,4 +25,5 @@ Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
       'id': instance.pokedexNumber,
       'types': instance.types,
       'stats': instance.stats,
+      'moves': instance.moves,
     };

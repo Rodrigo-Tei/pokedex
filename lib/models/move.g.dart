@@ -7,11 +7,11 @@ part of 'move.dart';
 // **************************************************************************
 
 Move _$MoveFromJson(Map<String, dynamic> json) => Move(
-      json['name'] as String,
-      json['type'] as String,
+      Move._extractMoveName(json['move'] as Map<String, dynamic>),
+      Move._extractMoveDetails(json['version_group_details'] as List),
     );
 
 Map<String, dynamic> _$MoveToJson(Move instance) => <String, dynamic>{
-      'name': instance.name,
-      'type': instance.type,
+      'move': instance.name,
+      'version_group_details': instance.moveDetails,
     };

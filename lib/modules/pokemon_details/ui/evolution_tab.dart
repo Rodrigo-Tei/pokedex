@@ -37,16 +37,16 @@ class _EvolutionTabState extends State<EvolutionTab> {
 
   Widget _buildPlaceholder() {
     //TODO: create placeholder
-    return Text('ESSE BICHO NUM EVOLUI');
+    return const Text('ESSE BICHO NUM EVOLUI');
   }
 
   List<Widget> _buildEvolutionContidions(EvolutionDetails conditions) {
     late List<Widget> conditionList = List.empty(growable: true);
     if (conditions.gender != null) {
       if (conditions.gender == 0) {
-        conditionList.add(Text('male')); //TODO CHANGE TO ICON
+        conditionList.add(const Text('male')); //TODO CHANGE TO ICON
       } else {
-        conditionList.add(Text('female'));
+        conditionList.add(const Text('female'));
       }
     }
     if (conditions.heldItem != null) {
@@ -66,13 +66,13 @@ class _EvolutionTabState extends State<EvolutionTab> {
       conditionList.add(Text(conditions.location!));
     }
     if (conditions.minAffection != null) {
-      conditionList.add(Text('Affection'));
+      conditionList.add(const Text('Affection'));
     }
     if (conditions.minBeauty != null) {
-      conditionList.add(Text('Beauty'));
+      conditionList.add(const Text('Beauty'));
     }
     if (conditions.minHappiness != null) {
-      conditionList.add(Text('Happiness'));
+      conditionList.add(const Text('Happiness'));
     }
     if (conditions.minLevel != null) {
       conditionList.add(Text('Level ${conditions.minLevel!.toString()}'));
@@ -96,7 +96,7 @@ class _EvolutionTabState extends State<EvolutionTab> {
       conditionList.add(Text(conditions.tradeSpecies!));
     }
     if (conditions.trigger == 'trade') {
-      conditionList.add(Text('Trade')); //TODO: CHANGE TO ICON
+      conditionList.add(const Text('Trade')); //TODO: CHANGE TO ICON
     }
     return conditionList;
   }
