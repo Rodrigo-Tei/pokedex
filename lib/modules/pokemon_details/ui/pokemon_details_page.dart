@@ -14,6 +14,8 @@ import 'package:pokedex/modules/pokemon_details/ui/evolution_tab.dart';
 import 'package:pokedex/modules/pokemon_details/ui/stats_tab.dart';
 import 'package:pokedex/theme/colors.dart';
 
+import 'move_tab.dart';
+
 class PokemonDetailsPage extends StatefulWidget {
   const PokemonDetailsPage({super.key, required this.pokemon});
 
@@ -168,7 +170,10 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage>
                       EvolutionTab(
                           loading: _loading,
                           evolutionChain: pokemonDetails.evolutionChain),
-                      const Text("MOVES "),
+                      MoveTab(
+                        loading: _loading,
+                        pokemon: pokemon,
+                      ),
                     ],
                   ),
                 )
