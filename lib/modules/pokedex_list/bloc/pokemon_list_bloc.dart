@@ -22,6 +22,8 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
       _pokemonList += tmpPokemonList;
       for (Pokemon pokemon in _pokemonList) {
         handlePokemonStrings(pokemon);
+        pokemon.moves.sort(((a, b) => a.moveDetails.learnedMethod
+            .compareTo(b.moveDetails.learnedMethod)));
       }
       emit(PokemonListLoaded(_pokemonList));
     });

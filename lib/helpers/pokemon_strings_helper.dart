@@ -8,6 +8,15 @@ String undoCapitalizeFirstLetter(String word) {
   return word[0].toLowerCase() + word.substring(1);
 }
 
+String capitalizeEveryFirstLetter(String word) {
+  String finalWord = '';
+  List<String> wordInList = word.split('-');
+  for (String word in wordInList) {
+    finalWord += '${capitalizeFirstLetter(word)} ';
+  }
+  return finalWord;
+}
+
 String splitPokemonName(String name) {
   if (name.contains('jr')) {
     name = "${name.split('-')[0]} Jr.";
@@ -31,6 +40,9 @@ void handlePokemonStrings(Pokemon pokemon) {
   }
   for (int i = 0; i < pokemon.types.length; i++) {
     pokemon.types[i] = capitalizeFirstLetter(pokemon.types[i]);
+  }
+  for (int i = 0; i < pokemon.moves.length; i++) {
+    pokemon.moves[i].name = capitalizeEveryFirstLetter(pokemon.moves[i].name);
   }
 }
 
