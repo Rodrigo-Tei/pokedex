@@ -62,7 +62,7 @@ class MoveTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${pokemon.moves[i].name} + $i',
+                  pokemon.moves[i].name,
                   style: const TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w500,
@@ -84,7 +84,7 @@ class MoveTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${pokemon.moves[i].name} + $i',
+                        pokemon.moves[i].name,
                         style: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -99,7 +99,7 @@ class MoveTab extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${pokemon.moves[i].name} + $i',
+                    pokemon.moves[i].name,
                     style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,
