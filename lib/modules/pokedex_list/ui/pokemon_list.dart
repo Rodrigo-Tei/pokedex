@@ -117,16 +117,17 @@ class _PokemonListState extends State<PokemonList> {
                     statusBarIconBrightness: Brightness.dark,
                   ),
                   actions: [
-                    IconButton(
-                      onPressed: () => {},
-                      icon: const Icon(Icons.search),
-                      color: DefaultTheme.grayscale[Grayscale.black],
-                    ),
-                    IconButton(
-                      onPressed: () => {},
-                      icon: const Icon(Icons.filter_alt_outlined),
-                      color: DefaultTheme.grayscale[Grayscale.black],
-                    ),
+                    // TODO: IMPLEMENT THIS
+                    // IconButton(
+                    //   onPressed: () => {},
+                    //   icon: const Icon(Icons.search),
+                    //   color: DefaultTheme.grayscale[Grayscale.black],
+                    // ),
+                    // IconButton(
+                    //   onPressed: () => {},
+                    //   icon: const Icon(Icons.filter_alt_outlined),
+                    //   color: DefaultTheme.grayscale[Grayscale.black],
+                    // ),
                   ],
                   elevation: 0,
                   backgroundColor: DefaultTheme.transparent,

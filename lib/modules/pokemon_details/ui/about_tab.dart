@@ -255,9 +255,10 @@ class AboutTab extends StatelessWidget {
                   Text(
                     "Hatch Time",
                     style: TextStyle(
-                        color: DefaultTheme.grayscale[Grayscale.gray],
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500),
+                      color: DefaultTheme.grayscale[Grayscale.gray],
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   loading
                       ? _buildSmallTextShimmer()
